@@ -1,0 +1,9 @@
+name: 'github-api'
+description: 'Wrapper for github api'
+author: 'Allen Evans'
+branding:
+  icon: 'github'
+  color: 'green'
+runs:
+  using: 'node12'
+  main: 'dist/github-api.js'
