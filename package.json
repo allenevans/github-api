@@ -1,5 +1,5 @@
 {
-  "name": "github-api",
+  "name": "github-api-action",
   "version": "0.0.1",
   "private": true,
   "description": "Github api action wrapper",
@@ -33,6 +33,7 @@
     "@semantic-release/release-notes-generator": "7.3.0",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.5",
+    "github-api": "3.3.0",
     "jest": "24.9.0",
     "prettier": "1.18.2",
     "rimraf": "3.0.0",
