@@ -1,5 +1,10 @@
 import * as core from '@actions/core';
 import GitHub from 'github-api';
+import { inputParse } from './utils/input-parse';
+
+const mapping: Record<string, Function> = {
+  Gist: (github: any) => require('./gist/gist').default(github),
+};
 
 (async function run() {
   try {
@@ -10,15 +15,20 @@ import GitHub from 'github-api';
         console.log(`${key}=${process.env[key]}`);
       });
 
-    const gh = new GitHub({
-      token: process.env.GITHUB_TOKEN || process.env.GH_TOKEN,
+    const input = inputParse();
+    const { apiClass } = input.command;
+
+    const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+
+    const github = new GitHub({
+      token,
+      apiBase: input.apiBase,
     });
 
-    const response = await gh.getRepo('allenevans', 'github-api');
-
-    console.log('response', response);
-  } catch (error) {
-    core.setFailed(error.message);
+    core.setOutput('result', await mapping[apiClass](github)(input));
+  } catch (x) {
+    console.error(x);
+    core.setFailed(x.message);
     process.exit(1);
   }
 })();
