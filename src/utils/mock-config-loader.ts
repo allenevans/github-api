@@ -1,29 +1,21 @@
 import jsYaml from 'js-yaml';
 import { ActionInput } from '../types/action-input';
-import { commandParse } from './command-parse';
+import { inputParse } from './input-parse';
 
 export const mockConfigLoader = (config: string): ActionInput => {
   const {
     with: { json, yaml },
   } = jsYaml.safeLoad(config);
 
-  if (yaml) {
-    const input = jsYaml.safeLoad(yaml);
-
-    return {
-      ...input,
-      command: commandParse(input.command),
-    };
-  }
-
-  if (json) {
-    const input = JSON.parse(json);
-
-    return {
-      ...input,
-      command: commandParse(input.command),
-    };
-  }
-
-  throw new Error('Missing `yaml` or `json` input');
+  return inputParse((key: string) => {
+    switch (key) {
+      case 'json':
+        return json;
+      case 'yaml':
+        return yaml;
+      /* istanbul ignore next */
+      default:
+        throw new Error(`Unknown input key ${key}`);
+    }
+  });
 };

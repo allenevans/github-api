@@ -1,29 +1,28 @@
-import * as core from '@actions/core';
 import jsYaml from 'js-yaml';
 import { ActionInput } from '../types/action-input';
 import { commandParse } from './command-parse';
 
-export const inputParse: () => ActionInput = () => {
-  const yaml = core.getInput('yaml');
+export const ensureDefaults = (input: any): ActionInput => ({
+  ...input,
+  args: input.args || [],
+  command: commandParse(input.command),
+});
+
+export const inputParse: (getInput: Function) => ActionInput = (getInput) => {
+  const yaml = getInput('yaml');
 
   if (yaml) {
     const input = jsYaml.safeLoad(yaml);
 
-    return {
-      ...input,
-      command: commandParse(input.command),
-    };
+    return ensureDefaults(input);
   }
 
-  const json = core.getInput('json');
+  const json = getInput('json');
 
   if (json) {
     const input = JSON.parse(json);
 
-    return {
-      ...input,
-      command: commandParse(input.command),
-    };
+    return ensureDefaults(input);
   }
 
   throw new Error('Missing `yaml` or `json` input');

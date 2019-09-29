@@ -1,6 +1,5 @@
 import { mockConfigLoader } from './mock-config-loader';
 import { ActionInput } from '../types/action-input';
-import { ActionCommand } from '../types/action-command';
 
 describe('mock config loader', () => {
   it('should parse json config from input', () => {

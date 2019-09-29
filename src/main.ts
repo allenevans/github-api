@@ -15,7 +15,7 @@ const mapping: Record<string, Function> = {
         console.log(`${key}=${process.env[key]}`);
       });
 
-    const input = inputParse();
+    const input = inputParse(core.getInput);
     const { apiClass } = input.command;
 
     const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;

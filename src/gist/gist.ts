@@ -4,6 +4,7 @@ import { execCommand } from '../exec-command';
 const transformDefaults: Record<string, string> = {
   create: '.data.id',
   createComment: '.data.id',
+  delete: '.status',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> =>
