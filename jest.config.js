@@ -4,6 +4,7 @@ module.exports = {
   collectCoverage: false,
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   resetMocks: true,
+  restoreMocks: true,
   testMatch: [
     '**/?(*.)spec.ts',
   ],

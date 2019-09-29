@@ -25,7 +25,9 @@ const mapping: Record<string, Function> = {
       apiBase: input.apiBase,
     });
 
-    core.setOutput('result', await mapping[apiClass](github)(input));
+    const result = await mapping[apiClass](github)(input);
+
+    core.setOutput('result', result);
   } catch (x) {
     console.error(x);
     core.setFailed(x.message);
