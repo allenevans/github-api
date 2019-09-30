@@ -13,6 +13,7 @@ const transformDefaults: Record<string, string> = {
   isStarred: '.data',
   listComments: '.data',
   listCommits: '.data',
+  read: '.data',
   update: '.data.history[0].version',
 };
 
