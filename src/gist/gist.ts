@@ -15,6 +15,7 @@ const transformDefaults: Record<string, string> = {
   listCommits: '.data',
   read: '.data',
   star: 'if .status == 204 then true else false end',
+  unstar: 'if .status == 204 then true else false end',
   update: '.data.history[0].version',
 };
 
