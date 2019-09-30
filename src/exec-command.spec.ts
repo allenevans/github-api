@@ -32,4 +32,27 @@ describe('exec-command', () => {
       status: 200,
     });
   });
+
+  it('should handle boolean api responses', async () => {
+    const fakeMethod = () => Promise.resolve(true);
+    const api = Promise.resolve({ fakeMethod });
+
+    const result = await execCommand({
+      api,
+      input: {
+        args: [],
+        command: {
+          apiClass: 'fakeApi',
+          method: 'fakeMethod',
+        },
+        token: '',
+        transform: undefined,
+      },
+      transformDefaults: {},
+    });
+
+    expect(result).toEqual({
+      data: true,
+    });
+  });
 });

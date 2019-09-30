@@ -13,7 +13,13 @@ export const execCommand = async ({ api, input, transformDefaults }: ExecCommand
     command: { method },
     transform,
   } = input;
-  const { data, headers, status } = await (await api)[method](...args);
+  const response = await (await api)[method](...args);
+
+  if (typeof response === 'boolean') {
+    return jq.json({ data: response }, transform || transformDefaults[method] || '.');
+  }
+
+  const { data, headers, status } = response;
 
   return jq.json({ data, headers, status }, transform || transformDefaults[method] || '.');
 };

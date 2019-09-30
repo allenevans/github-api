@@ -10,6 +10,7 @@ const transformDefaults: Record<string, string> = {
   fork: '.data.id',
   getComment: '.data.body',
   getRevision: '.data.files',
+  isStarred: '.data',
   update: '.data.history[0].version',
 };
 
