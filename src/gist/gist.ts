@@ -4,8 +4,8 @@ import { execCommand } from '../exec-command';
 const selectDefaults: Record<string, string> = {
   create: '.data.id',
   createComment: '.data.id',
-  delete: '.status',
-  deleteComment: '.status',
+  delete: 'if .status == 204 then true else false end',
+  deleteComment: 'if .status == 204 then true else false end',
   editComment: '.data.id',
   fork: '.data.id',
   getComment: '.data.body',
