@@ -12,6 +12,7 @@ const transformDefaults: Record<string, string> = {
   getRevision: '.data.files',
   isStarred: '.data',
   listComments: '.data',
+  listCommits: '.data',
   update: '.data.history[0].version',
 };
 
