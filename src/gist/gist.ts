@@ -9,6 +9,7 @@ const transformDefaults: Record<string, string> = {
   editComment: '.data.id',
   fork: '.data.id',
   getComment: '.data.body',
+  getRevision: '.data.files',
   update: '.data.history[0].version',
 };
 
