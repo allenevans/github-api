@@ -1,3 +1,4 @@
+import GitHub from 'github-api';
 import gist from './gist';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
@@ -23,7 +24,13 @@ describe('Gist.delete', () => {
     jest.spyOn(mockGitHub, 'getGist');
   });
 
-  const mockGistCreateArgs = 'a comment';
+  describe('getGist', () => {
+    it('should have delete method', () => {
+      const api = new GitHub().getGist();
+
+      expect(api.delete).toBeDefined();
+    });
+  });
 
   describe('json', () => {
     test('Gist.delete', async () => {

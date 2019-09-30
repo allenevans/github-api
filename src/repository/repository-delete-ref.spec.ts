@@ -1,3 +1,4 @@
+import GitHub from 'github-api';
 import repository from './repository';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
@@ -24,6 +25,14 @@ describe('Repository.deleteRef', () => {
   });
 
   const mockArgs = 'heads/my-branch';
+
+  describe('getRepo', () => {
+    it('should have deleteRef method', () => {
+      const api = new GitHub().getRepo();
+
+      expect(api.deleteRef).toBeDefined();
+    });
+  });
 
   describe('json', () => {
     test('Repository.deleteRef', async () => {

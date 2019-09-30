@@ -1,3 +1,4 @@
+import GitHub from 'github-api';
 import gist from './gist';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
@@ -30,6 +31,14 @@ describe('Gist.create', () => {
       },
     },
   };
+
+  describe('getGist', () => {
+    it('should have create method', () => {
+      const api = new GitHub().getGist();
+
+      expect(api.create).toBeDefined();
+    });
+  });
 
   describe('json', () => {
     test('Gist.create', async () => {

@@ -1,3 +1,4 @@
+import GitHub from 'github-api';
 import gist from './gist';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
@@ -24,6 +25,14 @@ describe('Gist.createComment', () => {
   });
 
   const mockGistCreateArgs = 'a comment';
+
+  describe('getGist', () => {
+    it('should have createComment method', () => {
+      const api = new GitHub().getGist();
+
+      expect(api.createComment).toBeDefined();
+    });
+  });
 
   describe('json', () => {
     test('Gist.createComment', async () => {
