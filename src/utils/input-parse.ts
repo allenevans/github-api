@@ -6,6 +6,7 @@ export const ensureDefaults = (input: any): ActionInput => ({
   ...input,
   args: input.args || [],
   command: commandParse(input.command),
+  select: input.select || input.jq,
 });
 
 export const inputParse: (getInput: Function) => ActionInput = (getInput) => {

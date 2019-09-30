@@ -11,7 +11,7 @@ describe('mock config loader', () => {
               "args": [
                 "argument"
               ],
-              "transform": "."
+              "select": "."
             }
       `);
 
@@ -21,7 +21,7 @@ describe('mock config loader', () => {
         apiClass: 'json',
         method: 'method',
       },
-      transform: '.',
+      select: '.',
     });
   });
 
@@ -32,7 +32,7 @@ describe('mock config loader', () => {
             command: yaml.method
             args:
               - argument
-            transform: .
+            select: .
       `);
 
     expect(input).toEqual(<ActionInput>{
@@ -41,7 +41,7 @@ describe('mock config loader', () => {
         apiClass: 'yaml',
         method: 'method',
       },
-      transform: '.',
+      select: '.',
     });
   });
 

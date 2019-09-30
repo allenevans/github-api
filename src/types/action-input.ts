@@ -5,6 +5,6 @@ export interface ActionInput {
   command: ActionCommand;
   args: any[];
   id?: string;
+  select?: string;
   token: string;
-  transform?: string;
 }

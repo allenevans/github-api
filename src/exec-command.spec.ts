@@ -1,7 +1,7 @@
 import { execCommand } from './exec-command';
 
 describe('exec-command', () => {
-  it('should await the api method call and apply the default transform to the results', async () => {
+  it('should await the api method call and apply the default select to the results', async () => {
     const fakeMethod = (input: string) =>
       Promise.resolve({
         data: {
@@ -20,9 +20,9 @@ describe('exec-command', () => {
           method: 'fakeMethod',
         },
         token: '',
-        transform: undefined,
+        select: undefined,
       },
-      transformDefaults: {},
+      selectDefaults: {},
     });
 
     expect(result).toEqual({
@@ -46,9 +46,9 @@ describe('exec-command', () => {
           method: 'fakeMethod',
         },
         token: '',
-        transform: undefined,
+        select: undefined,
       },
-      transformDefaults: {},
+      selectDefaults: {},
     });
 
     expect(result).toEqual({

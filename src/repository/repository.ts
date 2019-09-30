@@ -1,13 +1,13 @@
 import { ActionInput } from '../types/action-input';
 import { execCommand } from '../exec-command';
 
-const transformDefaults: Record<string, string> = {
+const selectDefaults: Record<string, string> = {
   deleteRef: '.status',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> =>
   execCommand({
     input,
-    transformDefaults,
+    selectDefaults,
     api: github.getRepo(input.id),
   });
