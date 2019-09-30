@@ -4,6 +4,7 @@ import { inputParse } from './utils/input-parse';
 
 const mapping: Record<string, Function> = {
   Gist: (github: any) => require('./gist/gist').default(github),
+  Issue: (github: any) => require('./issue/issue').default(github),
   Repository: (github: any) => require('./repository/repository').default(github),
 };
 
