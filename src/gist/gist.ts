@@ -9,6 +9,7 @@ const transformDefaults: Record<string, string> = {
   editComment: '.data.id',
   fork: '.data.id',
   getComment: '.data.body',
+  update: '.data.history[0].version',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> =>
