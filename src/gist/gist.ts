@@ -6,6 +6,7 @@ const transformDefaults: Record<string, string> = {
   createComment: '.data.id',
   delete: '.status',
   deleteComment: '.status',
+  editComment: '.data.id',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> =>
