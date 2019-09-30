@@ -19,7 +19,7 @@ const mapping: Record<string, Function> = {
     const input = inputParse(core.getInput);
     const { apiClass } = input.command;
 
-    const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+    const token = core.getInput('token') || process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 
     const github = new GitHub({
       token,
