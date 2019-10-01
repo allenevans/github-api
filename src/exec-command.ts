@@ -13,13 +13,24 @@ export const execCommand = async ({ api, input, selectDefaults }: ExecCommand) =
     command: { method },
     select,
   } = input;
-  const response = await (await api)[method](...args);
 
-  if (typeof response === 'boolean') {
-    return jq.json({ data: response }, select || selectDefaults[method] || '.');
+  const transform = select || selectDefaults[method] || '.';
+
+  try {
+    const response = await (await api)[method](...args);
+
+    if (typeof response === 'boolean') {
+      return jq.json({ data: response }, transform);
+    }
+
+    const { data, headers, status } = response;
+
+    return jq.json({ data, headers, status }, transform);
+  } catch (exception) {
+    const {
+      response: { data, headers, status },
+    } = exception;
+
+    return { data, headers, status, error: true };
   }
-
-  const { data, headers, status } = response;
-
-  return jq.json({ data, headers, status }, select || selectDefaults[method] || '.');
 };

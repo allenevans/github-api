@@ -21,7 +21,9 @@ describe('mock config loader', () => {
         apiClass: 'json',
         method: 'method',
       },
+      ignoreErrors: false,
       select: '.',
+      token: '',
     });
   });
 
@@ -41,7 +43,9 @@ describe('mock config loader', () => {
         apiClass: 'yaml',
         method: 'method',
       },
+      ignoreErrors: false,
       select: '.',
+      token: '',
     });
   });
 
@@ -51,6 +55,6 @@ describe('mock config loader', () => {
         with:
           other:
       `),
-    ).toThrowError('Missing `yaml` or `json` input');
+    ).toThrowError('Missing `json` or `yaml` argument');
   });
 });

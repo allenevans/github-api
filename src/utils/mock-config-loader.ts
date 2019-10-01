@@ -15,7 +15,7 @@ export const mockConfigLoader = (config: string): ActionInput => {
         return yaml;
       /* istanbul ignore next */
       default:
-        throw new Error(`Unknown input key ${key}`);
+        return '';
     }
   });
 };

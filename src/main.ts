@@ -8,7 +8,11 @@ const mapping: Record<string, Function> = {
   Repository: (github: any) => require('./repository/repository').default(github),
 };
 
+const formatError = ({ data }: any) => `${data.message}\n${JSON.stringify(data.errors || {}, null, 2)}`;
+
 (async function run() {
+  const input = inputParse(core.getInput);
+
   try {
     Object.keys(process.env)
       .filter((key) => /^INPUT_/.test(key))
@@ -17,22 +21,31 @@ const mapping: Record<string, Function> = {
         console.log(`${key}=${process.env[key]}`);
       });
 
-    const input = inputParse(core.getInput);
     const { apiClass } = input.command;
 
-    const token = core.getInput('token') || process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
-
     const github = new GitHub({
-      token,
+      token: input.token || process.env.GITHUB_TOKEN || process.env.GH_TOKEN,
       apiBase: input.apiBase,
     });
 
     const result = await mapping[apiClass](github)(input);
 
-    core.setOutput('result', result);
+    if (!result.error) {
+      core.setOutput('result', JSON.stringify(result, null, 2));
+      return;
+    }
+
+    const error = formatError(result);
+
+    if (!input.ignoreErrors) {
+      throw new Error(error);
+    }
+
+    core.info(error);
   } catch (x) {
     console.error(x);
     core.setFailed(x.message);
+
     process.exit(1);
   }
 })();

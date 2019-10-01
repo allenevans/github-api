@@ -5,6 +5,7 @@ export interface ActionInput {
   command: ActionCommand;
   args: any[];
   id?: string;
+  ignoreErrors: boolean;
   select?: string;
   token: string;
 }

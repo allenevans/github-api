@@ -1,6 +1,7 @@
 import jsYaml from 'js-yaml';
 import { ActionInput } from '../types/action-input';
 import { commandParse } from './command-parse';
+import { stringToBoolean } from './boolean-utils';
 
 export const ensureDefaults = (input: any): ActionInput => ({
   ...input,
@@ -10,21 +11,16 @@ export const ensureDefaults = (input: any): ActionInput => ({
 });
 
 export const inputParse: (getInput: Function) => ActionInput = (getInput) => {
+  const ignoreErrors = stringToBoolean(getInput('ignoreErrors') || getInput('ignore_errors'));
+  const token = getInput('token');
+  const json = getInput('json');
   const yaml = getInput('yaml');
 
-  if (yaml) {
-    const input = jsYaml.safeLoad(yaml);
-
-    return ensureDefaults(input);
+  if (!json && !yaml) {
+    throw new Error('Missing `json` or `yaml` argument');
   }
 
-  const json = getInput('json');
+  const config = yaml ? jsYaml.safeLoad(yaml) : JSON.parse(json);
 
-  if (json) {
-    const input = JSON.parse(json);
-
-    return ensureDefaults(input);
-  }
-
-  throw new Error('Missing `yaml` or `json` input');
+  return ensureDefaults({ ...config, ignoreErrors, token });
 };
