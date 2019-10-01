@@ -6,6 +6,7 @@ export interface ActionInput {
   args: any[];
   id?: string;
   ignoreErrors: boolean;
+  repo?: string;
   select?: string;
   token: string;
 }

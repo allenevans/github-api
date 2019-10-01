@@ -44,7 +44,7 @@ describe('Issue.createIssueComment', () => {
           json: |
             {
               "command": "Issue.createIssueComment",
-              "id": "user/repo",
+              "repo": "owner/repo",
               "args": [
                 123456,
                 "that is an issue"
@@ -54,7 +54,7 @@ describe('Issue.createIssueComment', () => {
 
       await repository(mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.createIssueComment).toHaveBeenCalledWith(...mockArgs);
     });
   });
@@ -65,7 +65,7 @@ describe('Issue.createIssueComment', () => {
         with:
           yaml: |
             command: Issue.createIssueComment
-            id: user/repo
+            repo: owner/repo
             args:
               - 123456
               - that is an issue
@@ -73,7 +73,7 @@ describe('Issue.createIssueComment', () => {
 
       await repository(mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.createIssueComment).toHaveBeenCalledWith(...mockArgs);
     });
   });

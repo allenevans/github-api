@@ -10,14 +10,13 @@ const selectDefaults: Record<string, string> = {
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
-  if (!input.id) {
-    // throw new Error('id is required');
-    return Promise.reject(new Error('id is required'));
+  if (!input.repo || !input.repo.includes('/')) {
+    return Promise.reject(new Error('full repo name is required e.g. :owner/:repo'));
   }
 
   return execCommand({
     input,
     selectDefaults,
-    api: github.getIssues(...input.id.split('/')),
+    api: github.getIssues(...input.repo.split('/')),
   });
 };

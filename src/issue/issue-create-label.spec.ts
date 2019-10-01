@@ -47,7 +47,7 @@ describe('Issue.createLabel', () => {
           json: |
             {
               "command": "Issue.createLabel",
-              "id": "user/repo",
+              "repo": "owner/repo",
               "args": [{
                 "name": "good first issue",
                 "color": "009900",
@@ -58,7 +58,7 @@ describe('Issue.createLabel', () => {
 
       await repository(mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.createLabel).toHaveBeenCalledWith(...mockArgs);
     });
   });
@@ -69,7 +69,7 @@ describe('Issue.createLabel', () => {
         with:
           yaml: |
             command: Issue.createLabel
-            id: user/repo
+            repo: owner/repo
             args:
               - name: good first issue
                 color: 009900
@@ -78,7 +78,7 @@ describe('Issue.createLabel', () => {
 
       await repository(mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.createLabel).toHaveBeenCalledWith(...mockArgs);
     });
   });

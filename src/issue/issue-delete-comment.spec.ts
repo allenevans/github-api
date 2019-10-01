@@ -41,7 +41,7 @@ describe('Issue.deleteIssueComment', () => {
           json: |
             {
               "command": "Issue.deleteIssueComment",
-              "id": "user/repo",
+              "repo": "owner/repo",
               "args": [
                 123456
               ]
@@ -50,7 +50,7 @@ describe('Issue.deleteIssueComment', () => {
 
       await repository(mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.deleteIssueComment).toHaveBeenCalledWith(...mockArgs);
     });
   });
@@ -61,14 +61,14 @@ describe('Issue.deleteIssueComment', () => {
         with:
           yaml: |
             command: Issue.deleteIssueComment
-            id: user/repo
+            repo: owner/repo
             args:
               - 123456
       `);
 
       await repository(mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.deleteIssueComment).toHaveBeenCalledWith(...mockArgs);
     });
   });

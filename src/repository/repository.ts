@@ -2,12 +2,17 @@ import { ActionInput } from '../types/action-input';
 import { execCommand } from '../exec-command';
 
 const selectDefaults: Record<string, string> = {
-  deleteRef: '.status',
+  deleteRef: 'if .status == 204 then true else false end',
 };
 
-export default (github: any) => async (input: ActionInput): Promise<string> =>
-  execCommand({
+export default (github: any) => async (input: ActionInput): Promise<string> => {
+  if (!input.repo || !input.repo.includes('/')) {
+    return Promise.reject(new Error('full repo name is required e.g. :owner/:repo'));
+  }
+
+  return execCommand({
     input,
     selectDefaults,
-    api: github.getRepo(input.id),
+    api: github.getRepo(...input.repo.split('/')),
   });
+};

@@ -41,14 +41,14 @@ describe('Issue.deleteLabel', () => {
           json: |
             {
               "command": "Issue.deleteLabel",
-              "id": "user/repo",
+              "repo": "owner/repo",
               "args": ["good first issue"]
             }
       `);
 
       await repository(mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.deleteLabel).toHaveBeenCalledWith(...mockArgs);
     });
   });
@@ -59,14 +59,14 @@ describe('Issue.deleteLabel', () => {
         with:
           yaml: |
             command: Issue.deleteLabel
-            id: user/repo
+            repo: owner/repo
             args:
               - good first issue
       `);
 
       await repository(mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.deleteLabel).toHaveBeenCalledWith(...mockArgs);
     });
   });

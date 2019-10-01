@@ -5,7 +5,7 @@ import { mockConfigLoader } from '../utils/mock-config-loader';
 const mockGitHub: any = {
   mockDeleteRef: jest.fn(),
 
-  getRepo: (id?: string) =>
+  getRepo: (owner?: string, repo?: string) =>
     Promise.resolve({
       deleteRef: mockGitHub.mockDeleteRef,
     }),
@@ -41,7 +41,7 @@ describe('Repository.deleteRef', () => {
           json: |
             {
               "command": "Repository.deleteRef",
-              "id": "user/repo",
+              "repo": "owner/repo",
               "args": [
                 "heads/my-branch"
               ]
@@ -50,7 +50,7 @@ describe('Repository.deleteRef', () => {
 
       await repository(mockGitHub)(input);
 
-      expect(mockGitHub.getRepo).toHaveBeenCalledWith('user/repo');
+      expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.mockDeleteRef).toHaveBeenCalledWith(mockArgs);
     });
   });
@@ -61,14 +61,14 @@ describe('Repository.deleteRef', () => {
         with:
           yaml: |
             command: Repository.deleteRef
-            id: user/repo
+            repo: owner/repo
             args:
               - heads/my-branch
       `);
 
       await repository(mockGitHub)(input);
 
-      expect(mockGitHub.getRepo).toHaveBeenCalledWith('user/repo');
+      expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.mockDeleteRef).toHaveBeenCalledWith(mockArgs);
     });
   });
