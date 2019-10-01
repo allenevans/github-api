@@ -3,17 +3,17 @@ import repository from './issue';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
 const mockGitHub: any = {
-  createIssue: jest.fn(),
+  createLabel: jest.fn(),
 
   getIssues: (user: string, repo: string) =>
     Promise.resolve({
-      createIssue: mockGitHub.createIssue,
+      createLabel: mockGitHub.createLabel,
     }),
 };
 
-describe('Issue.createIssue', () => {
+describe('Issue.createLabel', () => {
   beforeEach(() => {
-    mockGitHub.createIssue.mockImplementation(() =>
+    mockGitHub.createLabel.mockImplementation(() =>
       Promise.resolve({
         data: {},
         headers: {},
@@ -24,30 +24,34 @@ describe('Issue.createIssue', () => {
     jest.spyOn(mockGitHub, 'getIssues');
   });
 
-  const mockArgs = {
-    title: 'we have a problem',
-    body: 'to be defined',
-  };
+  const mockArgs = [
+    {
+      name: 'good first issue',
+      color: '009900',
+      description: 'issue to get started with',
+    },
+  ];
 
   describe('getIssues', () => {
-    it('should have createIssue method', () => {
+    it('should have createLabel method', () => {
       const api = new GitHub().getIssues('user', 'repo');
 
-      expect(api.createIssue).toBeDefined();
+      expect(api.createLabel).toBeDefined();
     });
   });
 
   describe('json', () => {
-    test('Issue.createIssue', async () => {
+    test('Issue.createLabel', async () => {
       const input = mockConfigLoader(`
         with:
           json: |
             {
-              "command": "Issue.createIssue",
+              "command": "Issue.createLabel",
               "id": "user/repo",
               "args": [{
-                "title": "we have a problem",
-                "body": "to be defined"
+                "name": "good first issue",
+                "color": "009900",
+                "description": "issue to get started with"
               }]
             }
       `);
@@ -55,26 +59,27 @@ describe('Issue.createIssue', () => {
       await repository(mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
-      expect(mockGitHub.createIssue).toHaveBeenCalledWith(mockArgs);
+      expect(mockGitHub.createLabel).toHaveBeenCalledWith(...mockArgs);
     });
   });
 
   describe('yaml', () => {
-    test('Issue.createIssue', async () => {
+    test('Issue.createLabel', async () => {
       const input = mockConfigLoader(`
         with:
           yaml: |
-            command: Issue.createIssue
+            command: Issue.createLabel
             id: user/repo
             args:
-              - title: we have a problem
-                body: to be defined
+              - name: good first issue
+                color: 009900
+                description: issue to get started with
       `);
 
       await repository(mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
-      expect(mockGitHub.createIssue).toHaveBeenCalledWith(mockArgs);
+      expect(mockGitHub.createLabel).toHaveBeenCalledWith(...mockArgs);
     });
   });
 });

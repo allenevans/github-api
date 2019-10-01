@@ -3,17 +3,17 @@ import repository from './issue';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
 const mockGitHub: any = {
-  createIssue: jest.fn(),
+  deleteLabel: jest.fn(),
 
   getIssues: (user: string, repo: string) =>
     Promise.resolve({
-      createIssue: mockGitHub.createIssue,
+      deleteLabel: mockGitHub.deleteLabel,
     }),
 };
 
-describe('Issue.createIssue', () => {
+describe('Issue.deleteLabel', () => {
   beforeEach(() => {
-    mockGitHub.createIssue.mockImplementation(() =>
+    mockGitHub.deleteLabel.mockImplementation(() =>
       Promise.resolve({
         data: {},
         headers: {},
@@ -24,57 +24,50 @@ describe('Issue.createIssue', () => {
     jest.spyOn(mockGitHub, 'getIssues');
   });
 
-  const mockArgs = {
-    title: 'we have a problem',
-    body: 'to be defined',
-  };
+  const mockArgs = ['good first issue'];
 
   describe('getIssues', () => {
-    it('should have createIssue method', () => {
+    it('should have deleteLabel method', () => {
       const api = new GitHub().getIssues('user', 'repo');
 
-      expect(api.createIssue).toBeDefined();
+      expect(api.deleteLabel).toBeDefined();
     });
   });
 
   describe('json', () => {
-    test('Issue.createIssue', async () => {
+    test('Issue.deleteLabel', async () => {
       const input = mockConfigLoader(`
         with:
           json: |
             {
-              "command": "Issue.createIssue",
+              "command": "Issue.deleteLabel",
               "id": "user/repo",
-              "args": [{
-                "title": "we have a problem",
-                "body": "to be defined"
-              }]
+              "args": ["good first issue"]
             }
       `);
 
       await repository(mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
-      expect(mockGitHub.createIssue).toHaveBeenCalledWith(mockArgs);
+      expect(mockGitHub.deleteLabel).toHaveBeenCalledWith(...mockArgs);
     });
   });
 
   describe('yaml', () => {
-    test('Issue.createIssue', async () => {
+    test('Issue.deleteLabel', async () => {
       const input = mockConfigLoader(`
         with:
           yaml: |
-            command: Issue.createIssue
+            command: Issue.deleteLabel
             id: user/repo
             args:
-              - title: we have a problem
-                body: to be defined
+              - good first issue
       `);
 
       await repository(mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('user', 'repo');
-      expect(mockGitHub.createIssue).toHaveBeenCalledWith(mockArgs);
+      expect(mockGitHub.deleteLabel).toHaveBeenCalledWith(...mockArgs);
     });
   });
 });
