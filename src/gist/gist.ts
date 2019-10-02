@@ -8,7 +8,7 @@ const selectDefaults: Record<string, string> = {
   deleteComment: 'if .status == 204 then true else false end',
   editComment: '.data.id',
   fork: '.data.id',
-  getComment: '.data.body',
+  getComment: '.data',
   getRevision: '.data.files',
   isStarred: '.data',
   listComments: '.data',
