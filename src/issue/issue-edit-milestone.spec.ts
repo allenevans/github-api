@@ -3,17 +3,17 @@ import repository from './issue';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
 const mockGitHub: any = {
-  createMilestone: jest.fn(),
+  editMilestone: jest.fn(),
 
   getIssues: (user: string, repo: string) =>
     Promise.resolve({
-      createMilestone: mockGitHub.createMilestone,
+      editMilestone: mockGitHub.editMilestone,
     }),
 };
 
-describe('Issue.createMilestone', () => {
+describe('Issue.editMilestone', () => {
   beforeEach(() => {
-    mockGitHub.createMilestone.mockImplementation(() =>
+    mockGitHub.editMilestone.mockImplementation(() =>
       Promise.resolve({
         data: {},
         headers: {},
@@ -25,64 +25,69 @@ describe('Issue.createMilestone', () => {
   });
 
   const mockArgs = [
+    '1',
     {
       title: 'v1.0.0',
       state: 'open',
       description: 'Version 1.0.0',
-      due_on: '2020-01-01T00:00:00Z',
+      due_on: '2021-01-01T00:00:00Z',
     },
   ];
 
   describe('getIssues', () => {
-    it('should have createMilestone method', () => {
+    it('should have editMilestone method', () => {
       const api = new GitHub().getIssues('user', 'repo');
 
-      expect(api.createMilestone).toBeDefined();
+      expect(api.editMilestone).toBeDefined();
     });
   });
 
   describe('json', () => {
-    test('Issue.createMilestone', async () => {
+    test('Issue.editMilestone', async () => {
       const input = mockConfigLoader(`
         with:
           json: |
             {
-              "command": "Issue.createMilestone",
+              "command": "Issue.editMilestone",
               "repo": "owner/repo",
-              "args": [{
-                "title": "v1.0.0",
-                "state": "open",
-                "description": "Version 1.0.0",
-                "due_on": "2020-01-01T00:00:00Z"
-              }]
+              "args": [
+                "1",
+                {
+                  "title": "v1.0.0",
+                  "state": "open",
+                  "description": "Version 1.0.0",
+                  "due_on": "2021-01-01T00:00:00Z"
+                }
+              ]
             }
       `);
 
       await repository(mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.createMilestone).toHaveBeenCalledWith(...mockArgs);
+      expect(mockGitHub.editMilestone).toHaveBeenCalledWith(...mockArgs);
     });
   });
 
   describe('yaml', () => {
-    test('Issue.createMilestone', async () => {
+    test('Issue.editMilestone', async () => {
       const input = mockConfigLoader(`
         with:
           yaml: |
-            command: Issue.createMilestone
+            command: Issue.editMilestone
             repo: owner/repo
             args:
+              - '1'
               - title: v1.0.0
                 state: open
                 description: Version 1.0.0
-                due_on: '2020-01-01T00:00:00Z'
+                due_on: '2021-01-01T00:00:00Z'
       `);
 
       await repository(mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.createMilestone).toHaveBeenCalledWith(...mockArgs);
+      expect(mockGitHub.editMilestone).toHaveBeenCalledWith(...mockArgs);
     });
   });
 });
