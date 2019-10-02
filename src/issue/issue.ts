@@ -9,6 +9,7 @@ const selectDefaults: Record<string, string> = {
   createLabel: '.data.id',
   deleteLabel: 'if .status == 204 then true else false end',
   deleteMilestone: 'if .status == 204 then true else false end',
+  editIssue: '.data.number',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
