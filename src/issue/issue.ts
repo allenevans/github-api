@@ -4,9 +4,11 @@ import { execCommand } from '../exec-command';
 const selectDefaults: Record<string, string> = {
   createIssue: '.data.number',
   createIssueComment: '.data.id',
+  createMilestone: '.data.number',
   deleteIssueComment: 'if .status == 204 then true else false end',
   createLabel: '.data.id',
   deleteLabel: 'if .status == 204 then true else false end',
+  deleteMilestone: 'if .status == 204 then true else false end',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
