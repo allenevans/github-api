@@ -1,0 +1,75 @@
+import GitHub from 'github-api';
+import repository from './issue';
+import { mockConfigLoader } from '../utils/mock-config-loader';
+
+const mockGitHub: any = {
+  getLabel: jest.fn(),
+
+  getIssues: (user: string, repo: string) =>
+    Promise.resolve({
+      getLabel: mockGitHub.getLabel,
+    }),
+};
+
+describe('Issue.getLabel', () => {
+  beforeEach(() => {
+    mockGitHub.getLabel.mockImplementation(() =>
+      Promise.resolve({
+        data: {},
+        headers: {},
+        status: 0,
+      }),
+    );
+
+    jest.spyOn(mockGitHub, 'getIssues');
+  });
+
+  const mockArgs = ['my label'];
+
+  describe('getIssues', () => {
+    it('should have getLabel method', () => {
+      const api = new GitHub().getIssues('user', 'repo');
+
+      expect(api.getLabel).toBeDefined();
+    });
+  });
+
+  describe('json', () => {
+    test('Issue.getLabel', async () => {
+      const input = mockConfigLoader(`
+        with:
+          json: |
+            {
+              "command": "Issue.getLabel",
+              "repo": "owner/repo",
+              "args": [
+                "my label"
+              ]
+            }
+      `);
+
+      await repository(mockGitHub)(input);
+
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+      expect(mockGitHub.getLabel).toHaveBeenCalledWith(...mockArgs);
+    });
+  });
+
+  describe('yaml', () => {
+    test('Issue.getLabel', async () => {
+      const input = mockConfigLoader(`
+        with:
+          yaml: |
+            command: Issue.getLabel
+            repo : owner/repo
+            args:
+              - my label
+      `);
+
+      await repository(mockGitHub)(input);
+
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+      expect(mockGitHub.getLabel).toHaveBeenCalledWith(...mockArgs);
+    });
+  });
+});
