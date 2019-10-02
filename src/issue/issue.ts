@@ -13,6 +13,7 @@ const selectDefaults: Record<string, string> = {
   editIssue: '.data.number',
   editLabel: '.data.name',
   editMilestone: '.data.number',
+  getIssue: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
