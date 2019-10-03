@@ -97,4 +97,38 @@ describe('exec-command', () => {
       status: 500,
     });
   });
+
+  it('should handle standard exceptions', async () => {
+    const standardException: any = new Error('it will never pass');
+
+    const fakeMethod = () => {
+      return Promise.reject(standardException);
+    };
+
+    const api = Promise.resolve({ fakeMethod });
+
+    const result = await execCommand({
+      api,
+      input: {
+        args: ['faked'],
+        command: {
+          apiClass: 'fakeApi',
+          method: 'fakeMethod',
+        },
+        ignoreErrors: false,
+        token: '',
+        select: undefined,
+      },
+      selectDefaults: {},
+    });
+
+    expect(result).toEqual({
+      data: {
+        errors: [standardException],
+      },
+      error: true,
+      headers: {},
+      status: 500,
+    });
+  });
 });

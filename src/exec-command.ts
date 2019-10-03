@@ -27,9 +27,7 @@ export const execCommand = async ({ api, input, selectDefaults }: ExecCommand) =
 
     return jq.json({ data, headers, status }, transform);
   } catch (exception) {
-    const {
-      response: { data, headers, status },
-    } = exception;
+    const { response: { data, headers, status } = { data: { errors: [exception] }, headers: {}, status: 500 } } = exception;
 
     return { data, headers, status, error: true };
   }
