@@ -1,0 +1,85 @@
+import GitHub from 'github-api';
+import repository from './issue';
+import { mockConfigLoader } from '../utils/mock-config-loader';
+
+const mockGitHub: any = {
+  listMilestones: jest.fn(),
+
+  getIssues: (user: string, repo: string) =>
+    Promise.resolve({
+      listMilestones: mockGitHub.listMilestones,
+    }),
+};
+
+describe('Issue.listMilestones', () => {
+  beforeEach(() => {
+    mockGitHub.listMilestones.mockImplementation(() =>
+      Promise.resolve({
+        data: {},
+        headers: {},
+        status: 0,
+      }),
+    );
+
+    jest.spyOn(mockGitHub, 'getIssues');
+  });
+
+  const mockArgs = [
+    {
+      direction: 'desc',
+      sort: 'due_on',
+      state: 'all',
+    },
+  ];
+
+  describe('getIssues', () => {
+    it('should have listMilestones method', () => {
+      const api = new GitHub().getIssues('user', 'repo');
+
+      expect(api.listMilestones).toBeDefined();
+    });
+  });
+
+  describe('json', () => {
+    test('Issue.listMilestones', async () => {
+      const input = mockConfigLoader(`
+        with:
+          json: |
+            {
+              "command": "Issue.listMilestones",
+              "repo" : "owner/repo",
+              "args": [{
+                "direction": "desc",
+                "sort": "due_on",
+                "state": "all"
+              }]
+            }
+      `);
+
+      await repository(mockGitHub)(input);
+
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+      expect(mockGitHub.listMilestones).toHaveBeenCalledWith(...mockArgs);
+    });
+  });
+
+  describe('yaml', () => {
+    test('Issue.listMilestones', async () => {
+      const input = mockConfigLoader(`
+        with:
+          yaml: |
+            command: Issue.listMilestones
+            repo : owner/repo
+            args:
+              - direction: desc
+                sort: due_on
+                state: all
+      `);
+
+      await repository(mockGitHub)(input);
+
+      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+      expect(mockGitHub.listMilestones).toHaveBeenCalledWith(...mockArgs);
+    });
+  });
+});

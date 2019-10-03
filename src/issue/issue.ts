@@ -21,6 +21,7 @@ const selectDefaults: Record<string, string> = {
   listIssueEvents: '.data',
   listIssues: '.data',
   listLabels: '.data',
+  listMilestones: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
