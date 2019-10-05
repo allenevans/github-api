@@ -1,6 +1,6 @@
 import GitHub from 'github-api';
-import organization from './organization';
 import { mockConfigLoader } from '../utils/mock-config-loader';
+import { classMapping } from '../class-mapping';
 
 const mockGitHub: any = {
   getRepos: jest.fn(),
@@ -45,7 +45,7 @@ describe('Organization.getRepos', () => {
             }
       `);
 
-      await organization(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getOrganization).toHaveBeenCalledWith('my-org');
       expect(mockGitHub.getRepos).toHaveBeenCalledWith(...mockArgs);
@@ -61,7 +61,7 @@ describe('Organization.getRepos', () => {
             organization: my-org
       `);
 
-      await organization(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getOrganization).toHaveBeenCalledWith('my-org');
       expect(mockGitHub.getRepos).toHaveBeenCalledWith(...mockArgs);

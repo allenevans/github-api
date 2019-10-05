@@ -1,5 +1,5 @@
 import GitHub from 'github-api';
-import gist from './gist';
+import { classMapping } from '../class-mapping';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
 const mockGitHub: any = {
@@ -48,7 +48,7 @@ describe('Gist.getRevision', () => {
             }
       `);
 
-      await gist(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
       expect(mockGitHub.mockGetRevision).toHaveBeenCalledWith(...mockArgs);
@@ -66,7 +66,7 @@ describe('Gist.getRevision', () => {
               - 87bda301776cac4405000000880755454c200000
       `);
 
-      await gist(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
       expect(mockGitHub.mockGetRevision).toHaveBeenCalledWith(...mockArgs);

@@ -1,5 +1,5 @@
 import GitHub from 'github-api';
-import repository from './issue';
+import { classMapping } from '../class-mapping';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
 const mockGitHub: any = {
@@ -56,7 +56,7 @@ describe('Issue.listMilestones', () => {
             }
       `);
 
-      await repository(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.listMilestones).toHaveBeenCalledWith(...mockArgs);
@@ -76,7 +76,7 @@ describe('Issue.listMilestones', () => {
                 state: all
       `);
 
-      await repository(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.listMilestones).toHaveBeenCalledWith(...mockArgs);

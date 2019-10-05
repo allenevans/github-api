@@ -1,5 +1,5 @@
 import GitHub from 'github-api';
-import gist from './gist';
+import { classMapping } from '../class-mapping';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
 const mockGitHub = {
@@ -61,7 +61,7 @@ describe('Gist.create', () => {
             }
       `);
 
-      await gist(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.mockCreate).toHaveBeenCalledWith(mockGist);
     });
@@ -81,7 +81,7 @@ describe('Gist.create', () => {
                     content: config.log('hello world')
       `);
 
-      await gist(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.mockCreate).toHaveBeenCalledWith(mockGist);
     });

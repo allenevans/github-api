@@ -1,5 +1,5 @@
 import GitHub from 'github-api';
-import repository from './issue';
+import { classMapping } from '../class-mapping';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
 const mockGitHub: any = {
@@ -60,7 +60,7 @@ describe('Issue.editLabel', () => {
             }
       `);
 
-      await repository(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.editLabel).toHaveBeenCalledWith(...mockArgs);
@@ -81,7 +81,7 @@ describe('Issue.editLabel', () => {
                 description: issue to get started with
       `);
 
-      await repository(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.editLabel).toHaveBeenCalledWith(...mockArgs);

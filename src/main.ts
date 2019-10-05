@@ -1,14 +1,7 @@
 import * as core from '@actions/core';
 import GitHub from 'github-api';
 import { inputParse } from './utils/input-parse';
-
-const mapping: Record<string, Function> = {
-  Gist: (github: any) => require('./gist/gist').default(github),
-  Issue: (github: any) => require('./issue/issue').default(github),
-  Markdown: (github: any) => require('./markdown/markdown').default(github),
-  Organization: (github: any) => require('./organization/organization').default(github),
-  Repository: (github: any) => require('./repository/repository').default(github),
-};
+import { classMapping } from './class-mapping';
 
 const formatError = ({ data }: any) => `${data.message}\n${JSON.stringify(data.errors || {}, null, 2)}`;
 
@@ -30,7 +23,7 @@ const formatError = ({ data }: any) => `${data.message}\n${JSON.stringify(data.e
       apiBase: input.apiBase,
     });
 
-    const result = await mapping[apiClass](github)(input);
+    const result = await classMapping[apiClass](github)(input);
 
     if (!result.error) {
       core.setOutput('result', JSON.stringify(result, null, 2));

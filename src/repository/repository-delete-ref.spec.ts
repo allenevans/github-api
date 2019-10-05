@@ -1,5 +1,5 @@
 import GitHub from 'github-api';
-import repository from './repository';
+import { classMapping } from '../class-mapping';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
 const mockGitHub: any = {
@@ -48,7 +48,7 @@ describe('Repository.deleteRef', () => {
             }
       `);
 
-      await repository(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.mockDeleteRef).toHaveBeenCalledWith(mockArgs);
@@ -66,7 +66,7 @@ describe('Repository.deleteRef', () => {
               - heads/my-branch
       `);
 
-      await repository(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.mockDeleteRef).toHaveBeenCalledWith(mockArgs);

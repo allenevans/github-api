@@ -1,5 +1,5 @@
 import GitHub from 'github-api';
-import markdown from './markdown';
+import { classMapping } from '../class-mapping';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
 const mockGitHub: any = {
@@ -51,7 +51,7 @@ describe('Markdown.render', () => {
             }
       `);
 
-      await markdown(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getMarkdown).toHaveBeenCalled();
       expect(mockGitHub.render).toHaveBeenCalledWith(mockArgs);
@@ -69,7 +69,7 @@ describe('Markdown.render', () => {
                 text: '# Markdown'
       `);
 
-      await markdown(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getMarkdown).toHaveBeenCalled();
       expect(mockGitHub.render).toHaveBeenCalledWith(mockArgs);

@@ -1,5 +1,5 @@
 import GitHub from 'github-api';
-import repository from './issue';
+import { classMapping } from '../class-mapping';
 import { mockConfigLoader } from '../utils/mock-config-loader';
 
 const mockGitHub: any = {
@@ -58,7 +58,7 @@ describe('Issue.createMilestone', () => {
             }
       `);
 
-      await repository(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.createMilestone).toHaveBeenCalledWith(...mockArgs);
@@ -79,7 +79,7 @@ describe('Issue.createMilestone', () => {
                 due_on: '2020-01-01T00:00:00Z'
       `);
 
-      await repository(mockGitHub)(input);
+      await classMapping[input.command.apiClass](mockGitHub)(input);
 
       expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
       expect(mockGitHub.createMilestone).toHaveBeenCalledWith(...mockArgs);
