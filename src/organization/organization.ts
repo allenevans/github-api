@@ -4,6 +4,7 @@ import { execCommand } from '../exec-command';
 const selectDefaults: Record<string, string> = {
   createProject: '.data.url',
   createRepo: '.data.url',
+  createTeam: '.data.id',
   getRepos: '.data',
 };
 
