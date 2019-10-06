@@ -8,6 +8,7 @@ const selectDefaults: Record<string, string> = {
   getRepos: '.data',
   getTeams: '.data',
   isMember: '.data',
+  listMembers: '.data[].login',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
