@@ -6,6 +6,7 @@ const selectDefaults: Record<string, string> = {
   createProjectColumn: '.data.id',
   deleteProjectCard: 'if .status == 204 then true else false end',
   deleteProjectColumn: 'if .status == 204 then true else false end',
+  getProject: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
