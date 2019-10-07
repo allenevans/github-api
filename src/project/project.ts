@@ -2,6 +2,7 @@ import { ActionInput } from '../types/action-input';
 import { execCommand } from '../exec-command';
 
 const selectDefaults: Record<string, string> = {
+  createProjectCard: '.data.id',
   createProjectColumn: '.data.id',
 };
 
