@@ -4,6 +4,7 @@ import { execCommand } from '../exec-command';
 const selectDefaults: Record<string, string> = {
   createProjectCard: '.data.id',
   createProjectColumn: '.data.id',
+  deleteProjectCard: 'if .status == 204 then true else false end',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
