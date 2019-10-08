@@ -9,6 +9,7 @@ const selectDefaults: Record<string, string> = {
   getProject: '.data',
   getProjectCard: '.data',
   getProjectColumn: '.data',
+  listColumnCards: '.data',
   listProjectCards: '.data',
 };
 
