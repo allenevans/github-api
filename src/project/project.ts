@@ -12,6 +12,7 @@ const selectDefaults: Record<string, string> = {
   listColumnCards: '.data',
   listProjectCards: '.data',
   listProjectColumns: '.data',
+  moveProjectCard: 'if .status == 201 then true else false end',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
