@@ -25,18 +25,19 @@ const formatError = ({ data }: any) => `${data.message}\n${JSON.stringify(data.e
 
     const result = await classMapping[apiClass](github)(input);
 
-    if (!result.error) {
-      core.setOutput('result', JSON.stringify(result, null, 2));
+
+    if (result && result.error) {
+      const error = formatError(result);
+
+      if (!input.ignoreErrors) {
+        throw new Error(error);
+      }
+
+      core.info(error);
       return;
     }
 
-    const error = formatError(result);
-
-    if (!input.ignoreErrors) {
-      throw new Error(error);
-    }
-
-    core.info(error);
+    core.setOutput('result', JSON.stringify(result, null, 2));
   } catch (x) {
     console.error(x);
     core.setFailed(x.message);
