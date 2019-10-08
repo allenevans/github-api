@@ -4,5 +4,6 @@ export const classMapping: Record<string, Function> = {
   Markdown: (github: any) => require('./markdown/markdown').default(github),
   Organization: (github: any) => require('./organization/organization').default(github),
   Project: (github: any) => require('./project/project').default(github),
+  RateLimit: (github: any) => require('./rate-limit/rate-limit').default(github),
   Repository: (github: any) => require('./repository/repository').default(github),
 };
