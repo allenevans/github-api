@@ -9,6 +9,7 @@ const selectDefaults: Record<string, string> = {
   getProject: '.data',
   getProjectCard: '.data',
   getProjectColumn: '.data',
+  listProjectCards: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
