@@ -14,6 +14,7 @@ const selectDefaults: Record<string, string> = {
   listProjectColumns: '.data',
   moveProjectCard: 'if .status == 201 then true else false end',
   moveProjectColumn: 'if .status == 201 then true else false end',
+  updateProject: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
