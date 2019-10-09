@@ -25,7 +25,6 @@ const formatError = ({ data }: any) => `${data.message}\n${JSON.stringify(data.e
 
     const result = await classMapping[apiClass](github)(input);
 
-
     if (result && result.error) {
       const error = formatError(result);
 
