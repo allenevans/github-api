@@ -36,7 +36,7 @@ const formatError = ({ data }: any) => `${data.message}\n${JSON.stringify(data.e
       return;
     }
 
-    core.setOutput('result', JSON.stringify(result, null, 2));
+    core.setOutput('result', result);
   } catch (x) {
     console.error(x);
     core.setFailed(x.message);
