@@ -4,6 +4,7 @@ import { execCommand } from '../exec-command';
 const selectDefaults: Record<string, string> = {
   commit: '.data',
   compareBranches: '.data',
+  createBlob: '.data',
   deleteRef: 'if .status == 204 then true else false end',
   getBlob: '.data',
   getBranch: '.data',
