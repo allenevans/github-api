@@ -3,6 +3,7 @@ import { execCommand } from '../exec-command';
 
 const selectDefaults: Record<string, string> = {
   deleteRef: 'if .status == 204 then true else false end',
+  getBlob: '.data',
   getBranch: '.data',
   getCollaborators: '.data',
 };
