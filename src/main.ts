@@ -36,7 +36,13 @@ const formatError = ({ data }: any) => `${data.message}\n${JSON.stringify(data.e
       return;
     }
 
-    core.setOutput('result', result);
+    if (typeof result === 'object') {
+      for (const [key, value] of Object.entries(result)) {
+        core.setOutput(key, JSON.stringify(value, null, 2));
+      }
+    } else {
+      core.setOutput('result', JSON.stringify(result, null, 2));
+    }
   } catch (x) {
     console.error(x);
     core.setFailed(x.message);
