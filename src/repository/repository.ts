@@ -2,6 +2,7 @@ import { ActionInput } from '../types/action-input';
 import { execCommand } from '../exec-command';
 
 const selectDefaults: Record<string, string> = {
+  commit: '.data',
   deleteRef: 'if .status == 204 then true else false end',
   getBlob: '.data',
   getBranch: '.data',
