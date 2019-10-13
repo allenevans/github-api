@@ -8,6 +8,7 @@ const selectDefaults: Record<string, string> = {
   createBranch: '.data',
   createHook: '.data',
   createKey: '.data',
+  createProject: '.data',
   deleteHook: 'if .status == 204 then true else false end',
   deleteRef: 'if .status == 204 then true else false end',
   getBlob: '.data',
