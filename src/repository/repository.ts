@@ -5,6 +5,7 @@ const selectDefaults: Record<string, string> = {
   commit: '.data',
   compareBranches: '.data',
   createBlob: '.data',
+  createBranch: '.data',
   deleteRef: 'if .status == 204 then true else false end',
   getBlob: '.data',
   getBranch: '.data',
