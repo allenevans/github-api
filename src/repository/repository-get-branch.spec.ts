@@ -34,42 +34,16 @@ describe('Repository.getBranch', () => {
     });
   });
 
-  describe('json', () => {
-    test('Repository.getBranch', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Repository.getBranch",
-              "repo": "owner/repo",
-              "args": [
-                "master"
-              ]
-            }
+  test('Repository.getBranch', async () => {
+    const input = mockConfigLoader(`
+        command: Repository.getBranch
+        repo: owner/repo
+        args: master
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.getBranch).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Repository.getBranch', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Repository.getBranch
-            repo: owner/repo
-            args:
-              - master
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.getBranch).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.getBranch).toHaveBeenCalledWith(...mockArgs);
   });
 });

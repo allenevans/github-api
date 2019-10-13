@@ -41,21 +41,18 @@ describe('Issue.createMilestone', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Issue.createMilestone', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.createMilestone",
-              "repo": "owner/repo",
-              "args": [{
-                "title": "v1.0.0",
-                "state": "open",
-                "description": "Version 1.0.0",
-                "due_on": "2020-01-01T00:00:00Z"
-              }]
-            }
+        command: Issue.createMilestone
+        repo: owner/repo
+        args: |
+          {
+            "title": "v1.0.0",
+            "state": "open",
+            "description": "Version 1.0.0",
+            "due_on": "2020-01-01T00:00:00Z"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -65,18 +62,16 @@ describe('Issue.createMilestone', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Issue.createMilestone', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.createMilestone
-            repo: owner/repo
-            args:
-              - title: v1.0.0
-                state: open
-                description: Version 1.0.0
-                due_on: '2020-01-01T00:00:00Z'
+        command: Issue.createMilestone
+        repo: owner/repo
+        args: |
+          title: v1.0.0
+          state: open
+          description: Version 1.0.0
+          due_on: '2020-01-01T00:00:00Z'
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

@@ -40,22 +40,19 @@ describe('Project.updateProjectCard', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Project.updateProjectCard', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
+        command: Project.updateProjectCard
+        id: 123456
+        args: |
+          [
+            27478739,
             {
-              "command": "Project.updateProjectCard",
-              "id": 123456,
-              "args": [
-                27478739,
-                {
-                  "note": "go live",
-                  "archived": true
-                }
-              ]
+              "note": "go live",
+              "archived": true
             }
+          ]
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -65,17 +62,15 @@ describe('Project.updateProjectCard', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Project.updateProjectCard', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.updateProjectCard
-            id: 123456
-            args:
-              - 27478739
-              - note: go live
-                archived: true
+        command: Project.updateProjectCard
+        id: 123456
+        args: |
+          - 27478739
+          - note: go live
+            archived: true
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

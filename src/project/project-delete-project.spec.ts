@@ -34,37 +34,15 @@ describe('Project.deleteProject', () => {
     });
   });
 
-  describe('json', () => {
-    test('Project.deleteProject', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Project.deleteProject",
-              "id": 123456
-            }
+  test('Project.deleteProject', async () => {
+    const input = mockConfigLoader(`
+        command: Project.deleteProject
+        id: 123456
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
-      expect(mockGitHub.deleteProject).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Project.deleteProject', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.deleteProject
-            id: 123456
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
-      expect(mockGitHub.deleteProject).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
+    expect(mockGitHub.deleteProject).toHaveBeenCalledWith(...mockArgs);
   });
 });

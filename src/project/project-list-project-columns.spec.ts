@@ -34,37 +34,15 @@ describe('Project.listProjectColumns', () => {
     });
   });
 
-  describe('json', () => {
-    test('Project.listProjectColumns', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Project.listProjectColumns",
-              "id": 123456
-            }
+  test('Project.listProjectColumns', async () => {
+    const input = mockConfigLoader(`
+        command: Project.listProjectColumns
+        id: 123456
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
-      expect(mockGitHub.listProjectColumns).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Project.listProjectColumns', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.listProjectColumns
-            id: 123456
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
-      expect(mockGitHub.listProjectColumns).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
+    expect(mockGitHub.listProjectColumns).toHaveBeenCalledWith(...mockArgs);
   });
 });

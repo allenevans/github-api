@@ -37,18 +37,15 @@ describe('Markdown.render', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Markdown.render', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Markdown.render",
-              "args": [{
-                "mode": "markdown",
-                "text": "# Markdown"
-              }]
-            }
+        command: Markdown.render
+        args:
+          {
+            "mode": "markdown",
+            "text": "# Markdown"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -58,15 +55,13 @@ describe('Markdown.render', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Markdown.render', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Markdown.render
-            args:
-              - mode: markdown
-                text: '# Markdown'
+        command: Markdown.render
+        args:
+          mode: markdown
+          text: '# Markdown'
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

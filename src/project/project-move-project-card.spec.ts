@@ -38,20 +38,17 @@ describe('Project.moveProjectCard', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Project.moveProjectCard', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Project.moveProjectCard",
-              "id": 123456,
-              "args": [
-                27478739,
-                "bottom",
-                6724776
-              ]
-            }
+        command: Project.moveProjectCard
+        id: 123456
+        args: |
+          [
+            27478739,
+            "bottom",
+            6724776
+          ]
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -61,17 +58,15 @@ describe('Project.moveProjectCard', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Project.moveProjectCard', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.moveProjectCard
-            id: 123456
-            args:
-              - 27478739
-              - bottom
-              - 6724776
+        command: Project.moveProjectCard
+        id: 123456
+        args: |
+          - 27478739
+          - bottom
+          - 6724776
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

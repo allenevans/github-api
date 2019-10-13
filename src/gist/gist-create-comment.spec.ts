@@ -34,42 +34,17 @@ describe('Gist.createComment', () => {
     });
   });
 
-  describe('json', () => {
-    test('Gist.createComment', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Gist.createComment",
-              "id": "eb07a99bc427a3d3ce899d305f960000",
-              "args": [
-                "a comment"
-              ]
-            }
+  test('Gist.createComment', async () => {
+    const input = mockConfigLoader(`
+        command: Gist.createComment
+        id: eb07a99bc427a3d3ce899d305f960000
+        args: |
+          a comment
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
-      expect(mockGitHub.mockCreateComment).toHaveBeenCalledWith(mockGistCreateArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Gist.createComment', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Gist.createComment
-            id: eb07a99bc427a3d3ce899d305f960000
-            args:
-              - a comment
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
-      expect(mockGitHub.mockCreateComment).toHaveBeenCalledWith(mockGistCreateArgs);
-    });
+    expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
+    expect(mockGitHub.mockCreateComment).toHaveBeenCalledWith(mockGistCreateArgs);
   });
 });

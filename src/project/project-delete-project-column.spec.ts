@@ -36,42 +36,16 @@ describe('Project.deleteProjectColumn', () => {
     });
   });
 
-  describe('json', () => {
-    test('Project.deleteProjectColumn', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Project.deleteProjectColumn",
-              "id": 123456,
-              "args": [
-                777777
-              ]
-            }
+  test('Project.deleteProjectColumn', async () => {
+    const input = mockConfigLoader(`
+        command: Project.deleteProjectColumn
+        id: 123456
+        args: 777777
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
-      expect(mockGitHub.deleteProjectColumn).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Project.deleteProjectColumn', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.deleteProjectColumn
-            id: 123456
-            args:
-              - 777777
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
-      expect(mockGitHub.deleteProjectColumn).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
+    expect(mockGitHub.deleteProjectColumn).toHaveBeenCalledWith(...mockArgs);
   });
 });

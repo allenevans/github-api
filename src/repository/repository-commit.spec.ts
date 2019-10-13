@@ -48,30 +48,25 @@ describe('Repository.commit', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Repository.commit', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Repository.commit",
-              "repo": "owner/repo",
-              "args": [
-                {
-                  "message": "my commit message",
-                  "author": {
-                    "name": "Bob",
-                    "email": "bob@example.com",
-                    "date": "2019-10-10T06:19:01.397Z"
-                  },
-                  "parents": [
-                    "d81e57c925604ec206480fddb6e66f33a5a41d3d"
-                  ],
-                  "tree": "570d63f37fd10d42c6240cd54665b08a65a74de7",
-                  "signature": "-----PGP SIGNATURE-----"
-                }
-              ]
-            }
+        command: Repository.commit
+        repository: owner/repo
+        args: |
+          {
+            "message": "my commit message",
+            "author": {
+              "name": "Bob",
+              "email": "bob@example.com",
+              "date": "2019-10-10T06:19:01.397Z"
+            },
+            "parents": [
+              "d81e57c925604ec206480fddb6e66f33a5a41d3d"
+            ],
+            "tree": "570d63f37fd10d42c6240cd54665b08a65a74de7",
+            "signature": "-----PGP SIGNATURE-----"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -81,23 +76,21 @@ describe('Repository.commit', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Repository.commit', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Repository.commit
-            repo: owner/repo
-            args:
-              - message: my commit message
-                author:
-                  name: Bob
-                  email: bob@example.com
-                  date: '2019-10-10T06:19:01.397Z'
-                parents:
-                  - d81e57c925604ec206480fddb6e66f33a5a41d3d
-                tree: 570d63f37fd10d42c6240cd54665b08a65a74de7
-                signature: -----PGP SIGNATURE-----
+        command: Repository.commit
+        repository: owner/repo
+        args: |
+          message: my commit message
+          author:
+            name: Bob
+            email: bob@example.com
+            date: '2019-10-10T06:19:01.397Z'
+          parents:
+            - d81e57c925604ec206480fddb6e66f33a5a41d3d
+          tree: 570d63f37fd10d42c6240cd54665b08a65a74de7
+          signature: -----PGP SIGNATURE-----
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

@@ -34,42 +34,16 @@ describe('Project.listColumnCards', () => {
     });
   });
 
-  describe('json', () => {
-    test('Project.listColumnCards', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Project.listColumnCards",
-              "id": 123456,
-              "args": [
-                123456
-              ]
-            }
+  test('Project.listColumnCards', async () => {
+    const input = mockConfigLoader(`
+        command: Project.listColumnCards
+        id: 123456
+        args: 123456
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
-      expect(mockGitHub.listColumnCards).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Project.listColumnCards', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.listColumnCards
-            id: 123456
-            args:
-              - 123456
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
-      expect(mockGitHub.listColumnCards).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
+    expect(mockGitHub.listColumnCards).toHaveBeenCalledWith(...mockArgs);
   });
 });

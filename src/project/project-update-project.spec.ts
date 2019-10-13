@@ -42,24 +42,19 @@ describe('Project.updateProject', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Project.updateProject', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Project.updateProject",
-              "id": 123456,
-              "args": [
-                {
-                  "name": "test project",
-                  "body": "project description",
-                  "state": "open",
-                  "organization_permission": "none",
-                  "private": false
-                }
-              ]
-            }
+        command: Project.updateProject
+        id: 123456
+        args: |
+          {
+            "name": "test project",
+            "body": "project description",
+            "state": "open",
+            "organization_permission": "none",
+            "private": false
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -69,19 +64,17 @@ describe('Project.updateProject', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Project.updateProject', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.updateProject
-            id: 123456
-            args:
-              - name: 'test project'
-                body: 'project description'
-                state: 'open'
-                organization_permission: 'none'
-                private: false
+        command: Project.updateProject
+        id: 123456
+        args: |
+          name: 'test project'
+          body: 'project description'
+          state: 'open'
+          organization_permission: 'none'
+          private: false
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

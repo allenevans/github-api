@@ -34,16 +34,12 @@ describe('Repository.createBranch', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Repository.createBranch', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Repository.createBranch",
-              "repo": "owner/repo",
-              "args": ["master", "hotfix"]
-            }
+        command: Repository.createBranch
+        repo: owner/repo
+        args: ["master", "hotfix"]
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -53,16 +49,14 @@ describe('Repository.createBranch', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Repository.createBranch', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Repository.createBranch
-            repo: owner/repo
-            args:
-              - master
-              - hotfix
+        command: Repository.createBranch
+        repo: owner/repo
+        args: |
+          - master
+          - hotfix
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

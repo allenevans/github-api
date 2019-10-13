@@ -34,42 +34,16 @@ describe('Organization.isMember', () => {
     });
   });
 
-  describe('json', () => {
-    test('Organization.isMember', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Organization.isMember",
-              "organization": "my-org",
-              "args": [
-                "username"
-              ]
-            }
+  test('Organization.isMember', async () => {
+    const input = mockConfigLoader(`
+        command: Organization.isMember
+        organization: my-org
+        args: username
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getOrganization).toHaveBeenCalledWith('my-org');
-      expect(mockGitHub.isMember).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Organization.isMember', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Organization.isMember
-            organization: my-org
-            args:
-              - username
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getOrganization).toHaveBeenCalledWith('my-org');
-      expect(mockGitHub.isMember).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getOrganization).toHaveBeenCalledWith('my-org');
+    expect(mockGitHub.isMember).toHaveBeenCalledWith(...mockArgs);
   });
 });

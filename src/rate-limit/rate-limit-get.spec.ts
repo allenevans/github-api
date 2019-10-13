@@ -34,35 +34,14 @@ describe('RateLimit.getRateLimit', () => {
     });
   });
 
-  describe('json', () => {
-    test('RateLimit.getRateLimit', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "RateLimit.getRateLimit"
-            }
+  test('RateLimit.getRateLimit', async () => {
+    const input = mockConfigLoader(`
+        command: RateLimit.getRateLimit
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getRateLimit).toHaveBeenCalledWith();
-      expect(mockGitHub.mockGetRateLimit).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('RateLimit.getRateLimit', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: RateLimit.getRateLimit
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getRateLimit).toHaveBeenCalledWith();
-      expect(mockGitHub.mockGetRateLimit).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getRateLimit).toHaveBeenCalledWith();
+    expect(mockGitHub.mockGetRateLimit).toHaveBeenCalledWith(...mockArgs);
   });
 });

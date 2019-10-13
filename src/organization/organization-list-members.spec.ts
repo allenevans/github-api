@@ -34,19 +34,16 @@ describe('Organization.listMembers', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Organization.listMembers', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Organization.listMembers",
-              "organization": "my-org",
-              "args": [
-                "all",
-                "all"
-              ]
-            }
+        command: Organization.listMembers
+        organization: my-org
+        args: |
+          [
+            "all",
+            "all"
+          ]
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -56,16 +53,14 @@ describe('Organization.listMembers', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Organization.listMembers', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Organization.listMembers
-            organization: my-org
-            args:
-              - all
-              - all
+        command: Organization.listMembers
+        organization: my-org
+        args: |
+          - all
+          - all
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

@@ -34,19 +34,16 @@ describe('Project.moveProjectColumn', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Project.moveProjectColumn', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Project.moveProjectColumn",
-              "id": 123456,
-              "args": [
-                6724776,
-                "last"
-              ]
-            }
+        command: Project.moveProjectColumn
+        id: 123456
+        args: |
+          [
+            6724776,
+            "last"
+          ]
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -56,16 +53,14 @@ describe('Project.moveProjectColumn', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Project.moveProjectColumn', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.moveProjectColumn
-            id: 123456
-            args:
-              - 6724776
-              - last
+        command: Project.moveProjectColumn
+        id: 123456
+        args: |
+          - 6724776
+          - last
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

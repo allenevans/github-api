@@ -36,42 +36,16 @@ describe('Issue.listIssueComments', () => {
     });
   });
 
-  describe('json', () => {
-    test('Issue.listIssueComments', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.listIssueComments",
-              "repo": "owner/repo",
-              "args": [
-                123456
-              ]
-            }
+  test('Issue.listIssueComments', async () => {
+    const input = mockConfigLoader(`
+        command: Issue.listIssueComments
+        repo : owner/repo
+        args: 123456
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.listIssueComments).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Issue.listIssueComments', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.listIssueComments
-            repo : owner/repo
-            args:
-              - 123456
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.listIssueComments).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.listIssueComments).toHaveBeenCalledWith(...mockArgs);
   });
 });

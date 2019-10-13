@@ -41,23 +41,20 @@ describe('Issue.editLabel', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Issue.editLabel', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
+        command: Issue.editLabel
+        repo: owner/repo
+        args: |
+          [
+            "good first issue",
             {
-              "command": "Issue.editLabel",
-              "repo": "owner/repo",
-              "args": [
-                "good first issue",
-                {
-                  "name": "easy issue",
-                  "color": "003300",
-                  "description": "issue to get started with"
-                }
-              ]
+              "name": "easy issue",
+              "color": "003300",
+              "description": "issue to get started with"
             }
+          ]
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -67,18 +64,16 @@ describe('Issue.editLabel', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Issue.editLabel', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.editLabel
-            repo: owner/repo
-            args:
-              - good first issue
-              - name: easy issue
-                color: '003300'
-                description: issue to get started with
+        command: Issue.editLabel
+        repo: owner/repo
+        args: |
+          - good first issue
+          - name: easy issue
+            color: '003300'
+            description: issue to get started with
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

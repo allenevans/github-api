@@ -39,19 +39,16 @@ describe('Organization.createProject', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Organization.createProject', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Organization.createProject",
-              "organization": "my-org",
-              "args": [{
-                "name": "test project",
-                "body": "project description"
-              }]
-            }
+        command: Organization.createProject
+        organization: my-org
+        args: |
+          {
+            "name": "test project",
+            "body": "project description"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -61,16 +58,14 @@ describe('Organization.createProject', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Organization.createProject', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Organization.createProject
-            organization: my-org
-            args:
-              - name: 'test project'
-                body: 'project description'
+        command: Organization.createProject
+        organization: my-org
+        args: |
+          name: test project
+          body: project description
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

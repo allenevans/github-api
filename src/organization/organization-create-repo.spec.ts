@@ -44,26 +44,21 @@ describe('Organization.createRepo', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Organization.createRepo', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Organization.createRepo",
-              "organization": "my-org",
-              "args": [
-                {
-                  "name": "test-repo",
-                  "description": "Repo for testing github api",
-                  "homepage": "https://github.com",
-                  "private": false,
-                  "has_issues": true,
-                  "has_projects": true,
-                  "has_wiki": true
-                }
-              ]
-            }
+        command: Organization.createRepo
+        organization: my-org
+        args: |
+          {
+            "name": "test-repo",
+            "description": "Repo for testing github api",
+            "homepage": "https://github.com",
+            "private": false,
+            "has_issues": true,
+            "has_projects": true,
+            "has_wiki": true
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -73,21 +68,19 @@ describe('Organization.createRepo', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Organization.createRepo', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Organization.createRepo
-            organization: my-org
-            args:
-              - name: 'test-repo'
-                description: 'Repo for testing github api'
-                homepage: 'https://github.com'
-                private: false
-                has_issues: true
-                has_projects: true
-                has_wiki: true
+        command: Organization.createRepo
+        organization: my-org
+        args:
+          name: 'test-repo'
+          description: Repo for testing github api
+          homepage: 'https://github.com'
+          private: false
+          has_issues: true
+          has_projects: true
+          has_wiki: true
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

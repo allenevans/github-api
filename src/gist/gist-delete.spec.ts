@@ -32,37 +32,15 @@ describe('Gist.delete', () => {
     });
   });
 
-  describe('json', () => {
-    test('Gist.delete', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Gist.delete",
-              "id": "eb07a99bc427a3d3ce899d305f960000"
-            }
-      `);
+  test('Gist.delete', async () => {
+    const input = mockConfigLoader(`
+      command: Gist.delete
+      id: eb07a99bc427a3d3ce899d305f960000
+    `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
-      expect(mockGitHub.mockDelete).toHaveBeenCalledWith();
-    });
-  });
-
-  describe('yaml', () => {
-    test('Gist.delete', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Gist.delete
-            id: eb07a99bc427a3d3ce899d305f960000
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
-      expect(mockGitHub.mockDelete).toHaveBeenCalledWith();
-    });
+    expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
+    expect(mockGitHub.mockDelete).toHaveBeenCalledWith();
   });
 });

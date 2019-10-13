@@ -34,37 +34,15 @@ describe('Project.listProjectCards', () => {
     });
   });
 
-  describe('json', () => {
-    test('Project.listProjectCards', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Project.listProjectCards",
-              "id": 123456
-            }
+  test('Project.listProjectCards', async () => {
+    const input = mockConfigLoader(`
+        command: Project.listProjectCards
+        id: 123456
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
-      expect(mockGitHub.listProjectCards).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Project.listProjectCards', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.listProjectCards
-            id: 123456
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
-      expect(mockGitHub.listProjectCards).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getProject).toHaveBeenCalledWith(123456);
+    expect(mockGitHub.listProjectCards).toHaveBeenCalledWith(...mockArgs);
   });
 });

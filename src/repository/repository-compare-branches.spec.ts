@@ -34,19 +34,16 @@ describe('Repository.compareBranches', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Repository.compareBranches', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Repository.compareBranches",
-              "repo": "owner/repo",
-              "args": [
-                "38f1b7d29f972783022cbb239bd7bd83c5af647c",
-                "2650f145def9b02e7bcc370e3f15383a2e544ee7"
-              ]
-            }
+        command: Repository.compareBranches
+        repo: owner/repo
+        args: |
+          [
+            "38f1b7d29f972783022cbb239bd7bd83c5af647c",
+            "2650f145def9b02e7bcc370e3f15383a2e544ee7"
+          ]
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -56,16 +53,14 @@ describe('Repository.compareBranches', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Repository.compareBranches', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Repository.compareBranches
-            repo: owner/repo
-            args:
-              - 38f1b7d29f972783022cbb239bd7bd83c5af647c
-              - 2650f145def9b02e7bcc370e3f15383a2e544ee7
+        command: Repository.compareBranches
+        repo: owner/repo
+        args: |
+          - 38f1b7d29f972783022cbb239bd7bd83c5af647c
+          - 2650f145def9b02e7bcc370e3f15383a2e544ee7
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

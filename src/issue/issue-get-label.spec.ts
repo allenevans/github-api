@@ -34,42 +34,16 @@ describe('Issue.getLabel', () => {
     });
   });
 
-  describe('json', () => {
-    test('Issue.getLabel', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.getLabel",
-              "repo": "owner/repo",
-              "args": [
-                "my label"
-              ]
-            }
+  test('Issue.getLabel', async () => {
+    const input = mockConfigLoader(`
+        command: Issue.getLabel
+        repo : owner/repo
+        args: my label
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.getLabel).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Issue.getLabel', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.getLabel
-            repo : owner/repo
-            args:
-              - my label
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.getLabel).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.getLabel).toHaveBeenCalledWith(...mockArgs);
   });
 });

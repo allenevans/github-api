@@ -34,19 +34,15 @@ describe('Gist.editComment', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Gist.editComment', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Gist.editComment",
-              "id": "eb07a99bc427a3d3ce899d305f960000",
-              "args": [
-                123456,
-                "updated comment"
-              ]
-            }
+        command: Gist.editComment
+        id: eb07a99bc427a3d3ce899d305f960000
+        args: [
+          123456,
+          "updated comment"
+        ]
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -56,16 +52,14 @@ describe('Gist.editComment', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Gist.editComment', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Gist.editComment
-            id: eb07a99bc427a3d3ce899d305f960000
-            args:
-              - 123456
-              - updated comment
+        command: Gist.editComment
+        id: eb07a99bc427a3d3ce899d305f960000
+        args: |
+          - 123456
+          - updated comment
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

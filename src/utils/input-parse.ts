@@ -3,24 +3,39 @@ import { ActionInput } from '../types/action-input';
 import { commandParse } from './command-parse';
 import { stringToBoolean } from './boolean-utils';
 
-export const ensureDefaults = (input: any): ActionInput => ({
-  ...input,
-  args: input.args || [],
-  command: commandParse(input.command),
-  select: input.select || input.jq,
-});
+const toArray = (input: any) => (Array.isArray(input) ? input : [input]);
 
-export const inputParse: (getInput: Function) => ActionInput = (getInput) => {
-  const ignoreErrors = stringToBoolean(getInput('ignoreErrors') || getInput('ignore_errors'));
-  const token = getInput('token');
-  const json = getInput('json');
-  const yaml = getInput('yaml');
-
-  if (!json && !yaml) {
-    throw new Error('Missing `json` or `yaml` argument');
+const parseArgs = (argsInput: string): any[] => {
+  if (!argsInput) {
+    return [];
   }
 
-  const config = yaml ? jsYaml.safeLoad(yaml) : JSON.parse(json);
+  if (typeof argsInput !== 'string') {
+    return toArray(argsInput);
+  }
 
-  return ensureDefaults({ ...config, ignoreErrors, token });
+  if ((/^[{\[]/).test(argsInput.trim())) {
+    return toArray(JSON.parse(argsInput));
+  }
+
+  return toArray(jsYaml.safeLoad(argsInput));
 };
+
+export const ensureDefaults = (input: any): ActionInput => ({
+  ...input,
+  command: commandParse(input.command),
+  select: input.select || input.jq,
+  token: input.token || '',
+});
+
+export const inputParse: (getInput: Function) => ActionInput = (getInput) =>
+  ensureDefaults({
+    args: parseArgs(getInput('args') || ''),
+    command: getInput('command'),
+    id: getInput('id'),
+    ignoreErrors: stringToBoolean(getInput('ignoreErrors') || getInput('ignore_errors')),
+    organization: getInput('organization') || getInput('org'),
+    repo: getInput('repository') || getInput('repo'),
+    select: getInput('select'),
+    token: getInput('token'),
+  });

@@ -25,7 +25,7 @@ describe('Issue.editMilestone', () => {
   });
 
   const mockArgs = [
-    '1',
+    1,
     {
       title: 'v1.0.0',
       state: 'open',
@@ -42,24 +42,21 @@ describe('Issue.editMilestone', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Issue.editMilestone', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
+        command: Issue.editMilestone
+        repo: owner/repo
+        args: |
+          [
+            1,
             {
-              "command": "Issue.editMilestone",
-              "repo": "owner/repo",
-              "args": [
-                "1",
-                {
-                  "title": "v1.0.0",
-                  "state": "open",
-                  "description": "Version 1.0.0",
-                  "due_on": "2021-01-01T00:00:00Z"
-                }
-              ]
+              "title": "v1.0.0",
+              "state": "open",
+              "description": "Version 1.0.0",
+              "due_on": "2021-01-01T00:00:00Z"
             }
+          ]
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -69,19 +66,17 @@ describe('Issue.editMilestone', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Issue.editMilestone', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.editMilestone
-            repo: owner/repo
-            args:
-              - '1'
-              - title: v1.0.0
-                state: open
-                description: Version 1.0.0
-                due_on: '2021-01-01T00:00:00Z'
+        command: Issue.editMilestone
+        repo: owner/repo
+        args:
+          - 1
+          - title: v1.0.0
+            state: open
+            description: Version 1.0.0
+            due_on: '2021-01-01T00:00:00Z'
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

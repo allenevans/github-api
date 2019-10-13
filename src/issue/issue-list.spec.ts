@@ -46,26 +46,23 @@ describe('Issue.listIssues', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Issue.listIssues', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.listIssues",
-              "repo" : "owner/repo",
-              "args": [{
-                "milestone": "none",
-                "state": "all",
-                "assignee": "none",
-                "creator": "bob",
-                "mentioned": "bob",
-                "labels": "bug",
-                "sort": "updated",
-                "direction": "desc",
-                "since": "2019-01-01T00:00:00Z"
-              }]
-            }
+        command: Issue.listIssues
+        repo: owner/repo
+        args: |
+          {
+            "milestone": "none",
+            "state": "all",
+            "assignee": "none",
+            "creator": "bob",
+            "mentioned": "bob",
+            "labels": "bug",
+            "sort": "updated",
+            "direction": "desc",
+            "since": "2019-01-01T00:00:00Z"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -75,23 +72,21 @@ describe('Issue.listIssues', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Issue.listIssues', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.listIssues
-            repo : owner/repo
-            args:
-              - milestone: none
-                state: all
-                assignee: none
-                creator: bob
-                mentioned: bob
-                labels: bug
-                sort: updated
-                direction: desc
-                since: '2019-01-01T00:00:00Z'
+        command: Issue.listIssues
+        repo: owner/repo
+        args: |
+          milestone: none
+          state: all
+          assignee: none
+          creator: bob
+          mentioned: bob
+          labels: bug
+          sort: updated
+          direction: desc
+          since: '2019-01-01T00:00:00Z'
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

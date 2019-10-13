@@ -34,37 +34,15 @@ describe('Issue.listLabels', () => {
     });
   });
 
-  describe('json', () => {
-    test('Issue.listLabels', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.listLabels",
-              "repo": "owner/repo"
-            }
+  test('Issue.listLabels', async () => {
+    const input = mockConfigLoader(`
+        command: Issue.listLabels
+        repo : owner/repo
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.listLabels).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Issue.listLabels', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.listLabels
-            repo : owner/repo
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.listLabels).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.listLabels).toHaveBeenCalledWith(...mockArgs);
   });
 });

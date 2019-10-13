@@ -44,30 +44,27 @@ describe('Issue.editIssue', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Issue.editIssue', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
+        command: Issue.editIssue
+        repo: owner/repo
+        args: |
+          [
+            123456,
             {
-              "command": "Issue.editIssue",
-              "repo": "owner/repo",
-              "args": [
-                123456,
-                {
-                  "title": "We have a problem",
-                  "body": "Found during test",
-                  "assignees": [
-                    "bob"
-                  ],
-                  "milestone": 1,
-                  "state": "open",
-                  "labels": [
-                    "bug"
-                  ]
-                }
+              "title": "We have a problem",
+              "body": "Found during test",
+              "assignees": [
+                "bob"
+              ],
+              "milestone": 1,
+              "state": "open",
+              "labels": [
+                "bug"
               ]
             }
+          ]
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -77,23 +74,21 @@ describe('Issue.editIssue', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Issue.editIssue', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.editIssue
-            repo : owner/repo
-            args:
-              - 123456
-              - title: We have a problem
-                body: Found during test
-                assignees:
-                  - bob
-                milestone: 1
-                state: open
-                labels:
-                  - bug
+        command: Issue.editIssue
+        repo : owner/repo
+        args:
+          - 123456
+          - title: We have a problem
+            body: Found during test
+            assignees:
+              - bob
+            milestone: 1
+            state: open
+            labels:
+              - bug
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

@@ -38,20 +38,15 @@ describe('Project.updateProjectColumn', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Project.updateProjectColumn', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Project.updateProjectColumn",
-              "id": 123456,
-              "args": [
-                {
-                  "name": "Updated Backlog"
-                }
-              ]
-            }
+        command: Project.updateProjectColumn
+        id: 123456
+        args: |
+          {
+            "name": "Updated Backlog"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -61,15 +56,13 @@ describe('Project.updateProjectColumn', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Project.updateProjectColumn', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.updateProjectColumn
-            id: 123456
-            args:
-              - name: Updated Backlog
+        command: Project.updateProjectColumn
+        id: 123456
+        args: |
+          - name: Updated Backlog
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

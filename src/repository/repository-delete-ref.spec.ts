@@ -34,42 +34,16 @@ describe('Repository.deleteRef', () => {
     });
   });
 
-  describe('json', () => {
-    test('Repository.deleteRef', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Repository.deleteRef",
-              "repo": "owner/repo",
-              "args": [
-                "heads/my-branch"
-              ]
-            }
+  test('Repository.deleteRef', async () => {
+    const input = mockConfigLoader(`
+        command: Repository.deleteRef
+        repo: owner/repo
+        args: heads/my-branch
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.mockDeleteRef).toHaveBeenCalledWith(mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Repository.deleteRef', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Repository.deleteRef
-            repo: owner/repo
-            args:
-              - heads/my-branch
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.mockDeleteRef).toHaveBeenCalledWith(mockArgs);
-    });
+    expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.mockDeleteRef).toHaveBeenCalledWith(mockArgs);
   });
 });

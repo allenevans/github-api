@@ -1,6 +1,7 @@
 import GitHub from 'github-api';
 import { classMapping } from '../class-mapping';
 import { mockConfigLoader } from '../utils/mock-config-loader';
+import { inputParse } from '../utils/input-parse';
 
 const mockGitHub = {
   mockCreate: jest.fn(),
@@ -40,25 +41,20 @@ describe('Gist.create', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Gist.create', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Gist.create",
-              "args": [
-                {
-                  "description": "Hello World Examples",
-                  "public": false,
-                  "files": {
-                    "hello_world.js": {
-                      "content": "config.log('hello world')"
-                    }
-                  }
-                }
-              ]
+        command: Gist.create
+        args: |
+          {
+            "description": "Hello World Examples",
+            "public": false,
+            "files": {
+              "hello_world.js": {
+                "content": "config.log('hello world')"
+              }
             }
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -67,18 +63,16 @@ describe('Gist.create', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Gist.create', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Gist.create
-            args:
-              - description: Hello World Examples
-                public: false
-                files:
-                  hello_world.js:
-                    content: config.log('hello world')
+        command: Gist.create
+        args: |
+          description: Hello World Examples
+          public: false
+          files:
+            hello_world.js:
+              content: config.log('hello world')
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

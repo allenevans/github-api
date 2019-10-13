@@ -34,42 +34,16 @@ describe('Issue.deleteIssueComment', () => {
     });
   });
 
-  describe('json', () => {
-    test('Issue.deleteIssueComment', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.deleteIssueComment",
-              "repo": "owner/repo",
-              "args": [
-                123456
-              ]
-            }
+  test('Issue.deleteIssueComment', async () => {
+    const input = mockConfigLoader(`
+        command: Issue.deleteIssueComment
+        repo: owner/repo
+        args: 123456
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.deleteIssueComment).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Issue.deleteIssueComment', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.deleteIssueComment
-            repo: owner/repo
-            args:
-              - 123456
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.deleteIssueComment).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.deleteIssueComment).toHaveBeenCalledWith(...mockArgs);
   });
 });

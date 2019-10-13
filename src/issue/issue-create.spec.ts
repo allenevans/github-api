@@ -37,19 +37,16 @@ describe('Issue.createIssue', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Issue.createIssue', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.createIssue",
-              "repo": "owner/repo",
-              "args": [{
-                "title": "we have a problem",
-                "body": "to be defined"
-              }]
-            }
+        command: Issue.createIssue
+        repo: owner/repo
+        args: |
+          {
+            "title": "we have a problem",
+            "body": "to be defined"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -59,16 +56,14 @@ describe('Issue.createIssue', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Issue.createIssue', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.createIssue
-            repo : owner/repo
-            args:
-              - title: we have a problem
-                body: to be defined
+        command: Issue.createIssue
+        repo : owner/repo
+        args: |
+          title: we have a problem
+          body: to be defined
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

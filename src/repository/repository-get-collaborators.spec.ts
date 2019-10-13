@@ -34,37 +34,15 @@ describe('Repository.getCollaborators', () => {
     });
   });
 
-  describe('json', () => {
-    test('Repository.getCollaborators', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Repository.getCollaborators",
-              "repo": "owner/repo"
-            }
+  test('Repository.getCollaborators', async () => {
+    const input = mockConfigLoader(`
+        command: Repository.getCollaborators
+        repo: owner/repo
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.getCollaborators).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Repository.getCollaborators', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Repository.getCollaborators
-            repo: owner/repo
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.getCollaborators).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.getCollaborators).toHaveBeenCalledWith(...mockArgs);
   });
 });

@@ -34,37 +34,15 @@ describe('Organization.getRepos', () => {
     });
   });
 
-  describe('json', () => {
-    test('Organization.getRepos', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Organization.getRepos",
-              "organization": "my-org"
-            }
+  test('Organization.getRepos', async () => {
+    const input = mockConfigLoader(`
+        command: Organization.getRepos
+        organization: my-org
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getOrganization).toHaveBeenCalledWith('my-org');
-      expect(mockGitHub.getRepos).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Organization.getRepos', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Organization.getRepos
-            organization: my-org
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getOrganization).toHaveBeenCalledWith('my-org');
-      expect(mockGitHub.getRepos).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getOrganization).toHaveBeenCalledWith('my-org');
+    expect(mockGitHub.getRepos).toHaveBeenCalledWith(...mockArgs);
   });
 });

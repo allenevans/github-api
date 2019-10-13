@@ -34,42 +34,16 @@ describe('Repository.getBlob', () => {
     });
   });
 
-  describe('json', () => {
-    test('Repository.getBlob', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Repository.getBlob",
-              "repo": "owner/repo",
-              "args": [
-                "000086fb8db8eea7ccbb9a95f325ddbedfb20000"
-              ]
-            }
+  test('Repository.getBlob', async () => {
+    const input = mockConfigLoader(`
+        command: Repository.getBlob
+        repo: owner/repo
+        args: 000086fb8db8eea7ccbb9a95f325ddbedfb20000
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.getBlob).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Repository.getBlob', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Repository.getBlob
-            repo: owner/repo
-            args:
-              - 000086fb8db8eea7ccbb9a95f325ddbedfb20000
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.getBlob).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getRepo).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.getBlob).toHaveBeenCalledWith(...mockArgs);
   });
 });

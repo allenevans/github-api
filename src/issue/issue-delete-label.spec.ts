@@ -34,40 +34,16 @@ describe('Issue.deleteLabel', () => {
     });
   });
 
-  describe('json', () => {
-    test('Issue.deleteLabel', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.deleteLabel",
-              "repo": "owner/repo",
-              "args": ["good first issue"]
-            }
+  test('Issue.deleteLabel', async () => {
+    const input = mockConfigLoader(`
+        command: Issue.deleteLabel
+        repo: owner/repo
+        args: good first issue
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.deleteLabel).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Issue.deleteLabel', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.deleteLabel
-            repo: owner/repo
-            args:
-              - good first issue
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.deleteLabel).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.deleteLabel).toHaveBeenCalledWith(...mockArgs);
   });
 });

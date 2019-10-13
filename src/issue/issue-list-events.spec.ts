@@ -34,42 +34,16 @@ describe('Issue.listIssueEvents', () => {
     });
   });
 
-  describe('json', () => {
-    test('Issue.listIssueEvents', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.listIssueEvents",
-              "repo": "owner/repo",
-              "args": [
-                123456
-              ]
-            }
+  test('Issue.listIssueEvents', async () => {
+    const input = mockConfigLoader(`
+        command: Issue.listIssueEvents
+        repo : owner/repo
+        args: 123456
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.listIssueEvents).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Issue.listIssueEvents', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.listIssueEvents
-            repo : owner/repo
-            args:
-              - 123456
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.listIssueEvents).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.listIssueEvents).toHaveBeenCalledWith(...mockArgs);
   });
 });

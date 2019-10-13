@@ -34,42 +34,16 @@ describe('Issue.getMilestone', () => {
     });
   });
 
-  describe('json', () => {
-    test('Issue.getMilestone', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.getMilestone",
-              "repo": "owner/repo",
-              "args": [
-                1
-              ]
-            }
+  test('Issue.getMilestone', async () => {
+    const input = mockConfigLoader(`
+        command: Issue.getMilestone
+        repo : owner/repo
+        args: 1
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.getMilestone).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Issue.getMilestone', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.getMilestone
-            repo : owner/repo
-            args:
-              - 1
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.getMilestone).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.getMilestone).toHaveBeenCalledWith(...mockArgs);
   });
 });

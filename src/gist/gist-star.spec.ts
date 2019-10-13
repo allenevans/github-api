@@ -34,37 +34,15 @@ describe('Gist.star', () => {
     });
   });
 
-  describe('json', () => {
-    test('Gist.star', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Gist.star",
-              "id": "eb07a99bc427a3d3ce899d305f960000"
-            }
+  test('Gist.star', async () => {
+    const input = mockConfigLoader(`
+        command: Gist.star
+        id: eb07a99bc427a3d3ce899d305f960000
       `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
-      expect(mockGitHub.star).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Gist.star', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Gist.star
-            id: eb07a99bc427a3d3ce899d305f960000
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
-      expect(mockGitHub.star).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getGist).toHaveBeenCalledWith('eb07a99bc427a3d3ce899d305f960000');
+    expect(mockGitHub.star).toHaveBeenCalledWith(...mockArgs);
   });
 });

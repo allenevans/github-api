@@ -40,20 +40,17 @@ describe('Issue.listMilestones', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Issue.listMilestones', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.listMilestones",
-              "repo" : "owner/repo",
-              "args": [{
-                "direction": "desc",
-                "sort": "due_on",
-                "state": "all"
-              }]
-            }
+        command: Issue.listMilestones
+        repo: owner/repo
+        args: |
+          {
+            "direction": "desc",
+            "sort": "due_on",
+            "state": "all"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -63,17 +60,15 @@ describe('Issue.listMilestones', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Issue.listMilestones', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.listMilestones
-            repo : owner/repo
-            args:
-              - direction: desc
-                sort: due_on
-                state: all
+        command: Issue.listMilestones
+        repo : owner/repo
+        args: |
+          direction: desc
+          sort: due_on
+          state: all
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

@@ -24,7 +24,7 @@ describe('Issue.deleteMilestone', () => {
     jest.spyOn(mockGitHub, 'getIssues');
   });
 
-  const mockArgs = ['1'];
+  const mockArgs = [1];
 
   describe('getIssues', () => {
     it('should have deleteMilestone method', () => {
@@ -34,40 +34,16 @@ describe('Issue.deleteMilestone', () => {
     });
   });
 
-  describe('json', () => {
-    test('Issue.deleteMilestone', async () => {
-      const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.deleteMilestone",
-              "repo": "owner/repo",
-              "args": ["1"]
-            }
-      `);
+  test('Issue.deleteMilestone', async () => {
+    const input = mockConfigLoader(`
+      command: Issue.deleteMilestone
+      repo: owner/repo
+      args: 1
+    `);
 
-      await classMapping[input.command.apiClass](mockGitHub)(input);
+    await classMapping[input.command.apiClass](mockGitHub)(input);
 
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.deleteMilestone).toHaveBeenCalledWith(...mockArgs);
-    });
-  });
-
-  describe('yaml', () => {
-    test('Issue.deleteMilestone', async () => {
-      const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.deleteMilestone
-            repo: owner/repo
-            args:
-              - '1'
-      `);
-
-      await classMapping[input.command.apiClass](mockGitHub)(input);
-
-      expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
-      expect(mockGitHub.deleteMilestone).toHaveBeenCalledWith(...mockArgs);
-    });
+    expect(mockGitHub.getIssues).toHaveBeenCalledWith('owner', 'repo');
+    expect(mockGitHub.deleteMilestone).toHaveBeenCalledWith(...mockArgs);
   });
 });

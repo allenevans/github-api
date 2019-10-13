@@ -42,26 +42,21 @@ describe('Gist.update', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Gist.update', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Gist.update",
-              "id": "eb07a99bc427a3d3ce899d305f960000",
-              "args": [
-                {
-                  "description": "Hello World Examples Updated",
-                  "public": false,
-                  "files": {
-                    "hello_world.js": {
-                      "content": "config.log('hello world');"
-                    }
-                  }
-                }
-              ]
+        command: Gist.update
+        id: eb07a99bc427a3d3ce899d305f960000
+        args: |
+          {
+            "description": "Hello World Examples Updated",
+            "public": false,
+            "files": {
+              "hello_world.js": {
+                "content": "config.log('hello world');"
+              }
             }
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -71,19 +66,17 @@ describe('Gist.update', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Gist.update', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Gist.update
-            id: eb07a99bc427a3d3ce899d305f960000
-            args:
-              - description: Hello World Examples Updated
-                public: false
-                files:
-                  hello_world.js:
-                    content: config.log('hello world');
+        command: Gist.update
+        id: eb07a99bc427a3d3ce899d305f960000
+        args:
+          - description: Hello World Examples Updated
+            public: false
+            files:
+              hello_world.js:
+                content: config.log('hello world');
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

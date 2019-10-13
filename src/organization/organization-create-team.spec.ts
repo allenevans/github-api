@@ -41,21 +41,18 @@ describe('Organization.createTeam', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Organization.createTeam', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Organization.createTeam",
-              "organization": "my-org",
-              "args": [{
-                "name": "alpha team",
-                "description": "first team",
-                "repo_names": ["project-alpha"],
-                "privacy": "secret"
-              }]
-            }
+        command: Organization.createTeam
+        organization: my-org
+        args: |
+          {
+            "name": "alpha team",
+            "description": "first team",
+            "repo_names": ["project-alpha"],
+            "privacy": "secret"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -65,19 +62,17 @@ describe('Organization.createTeam', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Organization.createTeam', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Organization.createTeam
-            organization: my-org
-            args:
-              - name: alpha team
-                description: first team
-                repo_names:
-                  - project-alpha
-                privacy: secret
+        command: Organization.createTeam
+        organization: my-org
+        args:
+          name: alpha team
+          description: first team
+          repo_names:
+            - project-alpha
+          privacy: secret
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

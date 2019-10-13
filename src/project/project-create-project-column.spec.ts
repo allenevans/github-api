@@ -38,20 +38,15 @@ describe('Project.createProjectColumn', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Project.createProjectColumn', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Project.createProjectColumn",
-              "id": 123456,
-              "args": [
-                {
-                  "name": "Backlog"
-                }
-              ]
-            }
+        command: Project.createProjectColumn
+        id: 123456
+        args: |
+          {
+            "name": "Backlog"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -61,15 +56,13 @@ describe('Project.createProjectColumn', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Project.createProjectColumn', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Project.createProjectColumn
-            id: 123456
-            args:
-              - name: Backlog
+        command: Project.createProjectColumn
+        id: 123456
+        args: |
+          name: Backlog
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);

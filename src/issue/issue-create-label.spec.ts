@@ -40,20 +40,17 @@ describe('Issue.createLabel', () => {
     });
   });
 
-  describe('json', () => {
+  describe('json arguments', () => {
     test('Issue.createLabel', async () => {
       const input = mockConfigLoader(`
-        with:
-          json: |
-            {
-              "command": "Issue.createLabel",
-              "repo": "owner/repo",
-              "args": [{
-                "name": "good first issue",
-                "color": "009900",
-                "description": "issue to get started with"
-              }]
-            }
+        command: Issue.createLabel
+        repo: owner/repo
+        args: |
+          {
+            "name": "good first issue",
+            "color": "009900",
+            "description": "issue to get started with"
+          }
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
@@ -63,17 +60,15 @@ describe('Issue.createLabel', () => {
     });
   });
 
-  describe('yaml', () => {
+  describe('yaml arguments', () => {
     test('Issue.createLabel', async () => {
       const input = mockConfigLoader(`
-        with:
-          yaml: |
-            command: Issue.createLabel
-            repo: owner/repo
-            args:
-              - name: good first issue
-                color: 009900
-                description: issue to get started with
+        command: Issue.createLabel
+        repo: owner/repo
+        args: |
+          name: good first issue
+          color: 009900
+          description: issue to get started with
       `);
 
       await classMapping[input.command.apiClass](mockGitHub)(input);
