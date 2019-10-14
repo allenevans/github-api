@@ -9,6 +9,7 @@ const selectDefaults: Record<string, string> = {
   createHook: '.data',
   createKey: '.data',
   createProject: '.data',
+  createPullRequest: '.data',
   deleteHook: 'if .status == 204 then true else false end',
   deleteRef: 'if .status == 204 then true else false end',
   getBlob: '.data',
