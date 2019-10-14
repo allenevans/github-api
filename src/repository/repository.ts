@@ -27,6 +27,7 @@ const selectDefaults: Record<string, string> = {
   getContents: '.data',
   getContributors: '.data',
   getContributorStats: '.data',
+  getDetails: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
