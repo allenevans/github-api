@@ -12,6 +12,7 @@ const selectDefaults: Record<string, string> = {
   createPullRequest: '.data',
   createRef: '.data',
   createRelease: '.data',
+  createTree: '.data',
   deleteHook: 'if .status == 204 then true else false end',
   deleteRef: 'if .status == 204 then true else false end',
   getBlob: '.data',
