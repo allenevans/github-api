@@ -17,6 +17,7 @@ const selectDefaults: Record<string, string> = {
   deleteHook: 'if .status == 204 then true else false end',
   deleteKey: 'if .status == 204 then true else false end',
   deleteRef: 'if .status == 204 then true else false end',
+  deleteRelease: 'if .status == 204 then true else false end',
   getBlob: '.data',
   getBranch: '.data',
   getCollaborators: '.data',
