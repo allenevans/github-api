@@ -23,6 +23,7 @@ const selectDefaults: Record<string, string> = {
   getBlob: '.data',
   getBranch: '.data',
   getCollaborators: '.data',
+  getCommit: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
