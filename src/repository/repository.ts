@@ -15,6 +15,7 @@ const selectDefaults: Record<string, string> = {
   createTree: '.data',
   deleteFile: 'if .status == 204 then true else false end',
   deleteHook: 'if .status == 204 then true else false end',
+  deleteKey: 'if .status == 204 then true else false end',
   deleteRef: 'if .status == 204 then true else false end',
   getBlob: '.data',
   getBranch: '.data',
