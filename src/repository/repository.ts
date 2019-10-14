@@ -31,6 +31,7 @@ const selectDefaults: Record<string, string> = {
   getHook: '.data',
   getKey: '.data',
   getPullRequest: '.data',
+  getReadme: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
