@@ -25,6 +25,7 @@ const selectDefaults: Record<string, string> = {
   getCollaborators: '.data',
   getCommit: '.data',
   getContents: '.data',
+  getContributors: '.data',
   getContributorStats: '.data',
 };
 
