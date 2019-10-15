@@ -33,6 +33,7 @@ const selectDefaults: Record<string, string> = {
   getPullRequest: '.data',
   getReadme: '.data',
   getRef: '.data',
+  getSingleCommit: '.data',
   getTree: '.data',
 };
 
