@@ -46,6 +46,7 @@ const selectDefaults: Record<string, string> = {
   listKeys: '.data',
   listProjects: '.data',
   listPullRequestFiles: '.data',
+  listPullRequests: '.data',
   move: '.data',
 };
 
