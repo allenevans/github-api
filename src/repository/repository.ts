@@ -34,6 +34,7 @@ const selectDefaults: Record<string, string> = {
   getReadme: '.data',
   getRef: '.data',
   getRelease: '.data',
+  getSha: '.data',
   getSingleCommit: '.data',
   getTree: '.data',
 };
