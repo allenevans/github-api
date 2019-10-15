@@ -50,6 +50,7 @@ const selectDefaults: Record<string, string> = {
   listReleases: '.data',
   listStatuses: '.data',
   listTags: '.data',
+  mergePullRequest: '.data',
   move: '.data',
 };
 
