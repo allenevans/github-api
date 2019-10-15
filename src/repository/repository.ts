@@ -48,6 +48,7 @@ const selectDefaults: Record<string, string> = {
   listPullRequestFiles: '.data',
   listPullRequests: '.data',
   listReleases: '.data',
+  listStatuses: '.data',
   move: '.data',
 };
 
