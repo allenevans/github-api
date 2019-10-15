@@ -56,6 +56,7 @@ const selectDefaults: Record<string, string> = {
   unstar: 'if .status == 204 then true else false end',
   updateHead: '.data',
   updateHook: '.data',
+  updatePullRequest: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
