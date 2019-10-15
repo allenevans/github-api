@@ -59,6 +59,7 @@ const selectDefaults: Record<string, string> = {
   updatePullRequest: '.data',
   updateRelease: '.data',
   updateRepository: '.data',
+  updateStatus: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
