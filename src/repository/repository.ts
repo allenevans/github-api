@@ -54,6 +54,7 @@ const selectDefaults: Record<string, string> = {
   move: '.data',
   star: 'if .status == 204 then true else false end',
   unstar: 'if .status == 204 then true else false end',
+  updateHead: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
