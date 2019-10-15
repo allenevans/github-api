@@ -37,6 +37,7 @@ const selectDefaults: Record<string, string> = {
   getSha: '.data',
   getSingleCommit: '.data',
   getTree: '.data',
+  isCollaborator: 'if .status == 204 then true else false end',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
