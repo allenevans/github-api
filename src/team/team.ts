@@ -7,6 +7,7 @@ const selectDefaults: Record<string, string> = {
   getTeam: '.data',
   isManagedRepo: '.data',
   listMembers: '.data',
+  listRepos: '.data',
   manageRepo: '.data',
 };
 
