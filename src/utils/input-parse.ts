@@ -14,7 +14,7 @@ const parseArgs = (argsInput: string): any[] => {
     return toArray(argsInput);
   }
 
-  if ((/^[{\[]/).test(argsInput.trim())) {
+  if (/^[{\[]/.test(argsInput.trim())) {
     return toArray(JSON.parse(argsInput));
   }
 
