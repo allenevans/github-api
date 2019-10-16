@@ -38,4 +38,5 @@ export const inputParse: (getInput: Function) => ActionInput = (getInput) =>
     repo: getInput('repository') || getInput('repo'),
     select: getInput('select'),
     token: getInput('token'),
+    user: getInput('user'),
   });

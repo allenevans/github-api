@@ -10,4 +10,5 @@ export interface ActionInput {
   repo?: string;
   select?: string;
   token: string;
+  user?: string;
 }

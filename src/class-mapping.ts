@@ -8,4 +8,5 @@ export const classMapping: Record<string, Function> = {
   Repository: (github: any) => require('./repository/repository').default(github),
   Search: (github: any) => require('./search/search').default(github),
   Team: (github: any) => require('./team/team').default(github),
+  User: (github: any) => require('./user/user').default(github),
 };
