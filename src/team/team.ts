@@ -5,6 +5,7 @@ const selectDefaults: Record<string, string> = {
   addMembership: '.data',
   deleteTeam: '.data',
   getTeam: '.data',
+  isManagedRepo: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
