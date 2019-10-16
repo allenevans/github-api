@@ -5,6 +5,7 @@ const selectDefaults: Record<string, string> = {
   forCode: '.data',
   forIssues: '.data',
   forRepositories: '.data',
+  forUsers: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> =>
