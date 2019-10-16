@@ -4,6 +4,7 @@ import { execCommand } from '../exec-command';
 const selectDefaults: Record<string, string> = {
   addMembership: '.data',
   deleteTeam: '.data',
+  getTeam: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
