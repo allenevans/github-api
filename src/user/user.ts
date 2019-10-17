@@ -6,6 +6,7 @@ const selectDefaults: Record<string, string> = {
   follow: 'if .status == 204 then true else false end',
   getEmails: '.data',
   getProfile: '.data',
+  listFollowers: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
