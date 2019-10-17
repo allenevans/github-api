@@ -13,6 +13,7 @@ const selectDefaults: Record<string, string> = {
   listOrgs: '.data',
   listRepos: '.data',
   listStarredGists: '.data',
+  listStarredRepos: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
