@@ -11,6 +11,7 @@ const selectDefaults: Record<string, string> = {
   listGists: '.data',
   listNotifications: '.data',
   listOrgs: '.data',
+  listRepos: '.data',
 };
 
 export default (github: any) => async (input: ActionInput): Promise<string> => {
