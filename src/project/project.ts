@@ -2,8 +2,8 @@ import { ActionInput } from '../types/action-input';
 import { execCommand } from '../exec-command';
 
 const selectDefaults: Record<string, string> = {
-  createProjectCard: '.data.id',
-  createProjectColumn: '.data.id',
+  createProjectCard: '.data',
+  createProjectColumn: '.data',
   deleteProject: 'if .status == 204 then true else false end',
   deleteProjectCard: 'if .status == 204 then true else false end',
   deleteProjectColumn: 'if .status == 204 then true else false end',

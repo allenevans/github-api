@@ -38,8 +38,7 @@ describe('Gist.createComment', () => {
     const input = mockConfigLoader(`
         command: Gist.createComment
         id: eb07a99bc427a3d3ce899d305f960000
-        args: |
-          a comment
+        args: a comment
       `);
 
     await classMapping[input.command.apiClass](mockGitHub)(input);

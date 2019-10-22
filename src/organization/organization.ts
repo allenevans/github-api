@@ -2,13 +2,13 @@ import { ActionInput } from '../types/action-input';
 import { execCommand } from '../exec-command';
 
 const selectDefaults: Record<string, string> = {
-  createProject: '.data.url',
-  createRepo: '.data.url',
-  createTeam: '.data.id',
+  createProject: '.data',
+  createRepo: '.data',
+  createTeam: '.data',
   getRepos: '.data',
   getTeams: '.data',
   isMember: '.data',
-  listMembers: '.data[].login',
+  listMembers: '.data',
   listProjects: '.data',
 };
 
