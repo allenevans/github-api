@@ -1,7 +1,10 @@
 module.exports = {
-  collectCoverage: true,
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  collectCoverage: false,
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   resetMocks: true,
+  restoreMocks: true,
   testMatch: [
     '**/?(*.)spec.ts',
   ],
@@ -10,8 +13,5 @@ module.exports = {
     'node_modules/',
   ],
   testURL: 'http://localhost/',
-  transform: {
-    '^.+\\.tsx?$': 'ts-jest',
-  },
   verbose: true,
 };

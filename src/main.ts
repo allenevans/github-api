@@ -1,10 +1,52 @@
 import * as core from '@actions/core';
+import GitHub from 'github-api';
+import { inputParse } from './utils/input-parse';
+import { classMapping } from './class-mapping';
 
-(function run() {
+const formatError = ({ data }: any) => `${data.message}\n${JSON.stringify(data.errors || {}, null, 2)}`;
+
+(async function run() {
+  const input = inputParse(core.getInput);
+
   try {
-    core.debug('todo');
-  } catch (error) {
-    core.setFailed(error.message);
+    Object.keys(process.env)
+      .filter((key) => /^INPUT_/.test(key))
+      .forEach((key) => {
+        core.debug(`${key}=${process.env[key]}`);
+        console.log(`${key}=${process.env[key]}`);
+      });
+
+    const { apiClass } = input.command;
+
+    const github = new GitHub({
+      token: input.token || process.env.GITHUB_TOKEN || process.env.GH_TOKEN,
+      apiBase: input.apiBase,
+    });
+
+    const result = await classMapping[apiClass](github)(input);
+
+    if (result && result.error) {
+      const error = formatError(result);
+
+      if (!input.ignoreErrors) {
+        throw new Error(error);
+      }
+
+      core.info(error);
+      return;
+    }
+
+    if (typeof result === 'object') {
+      for (const [key, value] of Object.entries(result)) {
+        core.setOutput(key, JSON.stringify(value, null, 2));
+      }
+    } else {
+      core.setOutput('result', JSON.stringify(result, null, 2));
+    }
+  } catch (x) {
+    console.error(x);
+    core.setFailed(x.message);
+
     process.exit(1);
   }
 })();
