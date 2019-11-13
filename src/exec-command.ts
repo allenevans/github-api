@@ -29,6 +29,10 @@ export const execCommand = async ({ api, input, selectDefaults }: ExecCommand) =
   } catch (exception) {
     const { response: { data, headers, status } = { data: { errors: [exception] }, headers: {}, status: 500 } } = exception;
 
+    if (input.debug) {
+      console.log(exception.message, exception.stack);
+    }
+
     return { data, headers, status, error: true };
   }
 };

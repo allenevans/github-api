@@ -32,6 +32,7 @@ export const inputParse: (getInput: Function) => ActionInput = (getInput) =>
   ensureDefaults({
     args: parseArgs(getInput('args') || ''),
     command: getInput('command'),
+    debug: stringToBoolean(getInput('debug')) || false,
     id: getInput('id'),
     ignoreErrors: stringToBoolean(getInput('ignoreErrors') || getInput('ignore_errors')),
     organization: getInput('organization') || getInput('org'),
